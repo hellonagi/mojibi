@@ -1,5 +1,5 @@
-import React from 'react'
 import 'sanitize.css'
+import './app.css'
 
 import Game from './components/game'
 
