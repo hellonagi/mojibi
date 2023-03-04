@@ -3,7 +3,6 @@ import { useState, createContext } from 'react'
 import Container from '@mui/material/Container'
 
 import { DEFAULT_GRID } from '../../constants/defaultGrid'
-import UpperInfo from './UpperInfo'
 import BingoGrid from './BingoGrid'
 import Keyboard from './Keyboard'
 
@@ -29,7 +28,6 @@ const Game = () => {
 					setSavedGrid,
 				}}
 			>
-				{/* <UpperInfo /> */}
 				<BingoGrid />
 				<Keyboard />
 			</GameContext.Provider>

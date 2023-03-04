@@ -16,7 +16,6 @@ const UpperInfo = () => {
 	const [lines, setLines] = useState<number>(0)
 
 	useEffect(() => {
-		console.log('ayy')
 		const [_lines, _score] = calcLinesAndScore(savedGrid)
 		setLines(_lines)
 		setScore(_score)
@@ -30,7 +29,6 @@ const UpperInfo = () => {
 			<Box px={1} borderRadius={1} sx={{ backgroundColor: 'gray' }}>
 				<Typography>SCORE: {score.toString().padStart(2)}</Typography>
 			</Box>
-			{/* <Typography>SCORE: {score.toString().padStart(2)}</Typography> */}
 		</Box>
 	)
 }

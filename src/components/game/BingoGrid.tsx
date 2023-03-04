@@ -9,9 +9,10 @@ import { checkForMatchedLetters } from '../../utils/checkForMatchedLetters'
 import { checkForBingoLines } from '../../utils/checkForBingoLines'
 import Cell from './Cell'
 import UpperInfo from './UpperInfo'
+import LowerInfo from './LowerInfo'
 
 // Random 25 letters in Bingo Grid
-const bingoLetters: string[] = getBingoLetters()
+export const bingoLetters: string[] = getBingoLetters()
 
 interface BingoContext {
 	enteredWords: string[]
@@ -52,6 +53,7 @@ const Bingo = () => {
 					return <Cell letter={letter} index={index} key={letter} />
 				})}
 			</Grid>
+			<LowerInfo />
 		</Box>
 	)
 }
