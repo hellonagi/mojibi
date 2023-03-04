@@ -29,7 +29,7 @@ const Game = () => {
 					setSavedGrid,
 				}}
 			>
-				<UpperInfo />
+				{/* <UpperInfo /> */}
 				<BingoGrid />
 				<Keyboard />
 			</GameContext.Provider>

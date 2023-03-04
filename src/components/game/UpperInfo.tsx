@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from 'react'
 
 import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 
 import { GameContext } from '../game'
 import { calcLinesAndScore } from '../../utils/calcLinesAndScore'
@@ -22,9 +23,14 @@ const UpperInfo = () => {
 	}, [savedGrid])
 
 	return (
-		<Box display='flex' justifyContent='right' gap={2}>
-			<div>LINES: {lines}</div>
-			<div>SCORE: {score}</div>
+		<Box display='flex' justifyContent='right' gap={1} my={1}>
+			<Box px={1} borderRadius={1} sx={{ backgroundColor: 'gray' }}>
+				<Typography>LINES: {lines.toString().padStart(2)}</Typography>
+			</Box>
+			<Box px={1} borderRadius={1} sx={{ backgroundColor: 'gray' }}>
+				<Typography>SCORE: {score.toString().padStart(2)}</Typography>
+			</Box>
+			{/* <Typography>SCORE: {score.toString().padStart(2)}</Typography> */}
 		</Box>
 	)
 }

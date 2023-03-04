@@ -8,6 +8,7 @@ import { getBingoLetters } from '../../utils/getBingoLetters'
 import { checkForMatchedLetters } from '../../utils/checkForMatchedLetters'
 import { checkForBingoLines } from '../../utils/checkForBingoLines'
 import Cell from './Cell'
+import UpperInfo from './UpperInfo'
 
 // Random 25 letters in Bingo Grid
 const bingoLetters: string[] = getBingoLetters()
@@ -45,6 +46,7 @@ const Bingo = () => {
 
 	return (
 		<Box minWidth={300} maxWidth={340} marginLeft='auto' marginRight='auto'>
+			<UpperInfo />
 			<Grid container justifyContent='center' gap={1}>
 				{bingoLetters.map((letter, index) => {
 					return <Cell letter={letter} index={index} key={letter} />

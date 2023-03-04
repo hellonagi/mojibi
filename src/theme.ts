@@ -13,6 +13,7 @@ const theme = createTheme({
 		},
 	},
 	palette: {
+		mode: 'dark',
 		neutral: {
 			dark: grey[700],
 			main: grey[600],
