@@ -133,6 +133,7 @@ const Keyboard = () => {
 					display: 'grid',
 					gridTemplateColumns: 'repeat(10, 1fr)',
 					gridTemplateRows: 'repeat(5, 1fr)',
+					direction: 'rtl',
 					gap: 0.5,
 				}}
 			>
