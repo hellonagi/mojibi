@@ -30,7 +30,7 @@ const KeyButton: React.FC<KeyProps> = ({
 				minWidth: 24,
 				minHeight: 24,
 				px: 0,
-				height: 48,
+				height: 40,
 				visibility: isHidden ? 'hidden' : 'visible',
 				flexFlow: isMultipleLine ? 'column' : 'row',
 			}}
@@ -104,7 +104,7 @@ const Keyboard = () => {
 	}, [value])
 
 	return (
-		<Box textAlign='center' mt={2}>
+		<Box textAlign='center' mb={1.5}>
 			<form onSubmit={handleSubmit} id='keyForm'>
 				<Box display='flex' justifyContent='center'>
 					<TextField
@@ -114,16 +114,21 @@ const Keyboard = () => {
 						inputProps={{
 							maxLength: 4,
 						}}
-						size='small'
 					/>
-					<Button color='neutral' type='submit' variant='contained' sx={{ marginLeft: 1 }}>
+					<Button
+						color='neutral'
+						type='submit'
+						variant='contained'
+						size='small'
+						sx={{ marginLeft: 1 }}
+					>
 						ENTER
 					</Button>
 				</Box>
 			</form>
 
 			<Box
-				mt={2}
+				mt={1}
 				sx={{
 					display: 'grid',
 					gridTemplateColumns: 'repeat(10, 1fr)',

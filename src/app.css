@@ -1,5 +1,14 @@
+:root {
+	--doc-height: 100%;
+}
+
 body {
 	background-color: #121214;
 	font-family: 'Roboto', sans-serif;
 	overflow: hidden;
+}
+
+.container {
+	height: 100vh;
+	height: var(--doc-height);
 }

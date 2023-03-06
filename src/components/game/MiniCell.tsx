@@ -49,15 +49,17 @@ const MiniCell = ({ char, isFilled, isCurrent }: MiniCellProps) => {
 				backgroundColor: cellColor,
 				borderColor: borderColor,
 				fontSize: '0.75rem',
+				'&:before': {
+					content: `"${char}"`,
+					display: 'inline-block',
+				},
 			}}
 			ml={0.25}
 			width='25%'
 			alignItems='center'
 			justifyContent='center'
 			display='flex'
-		>
-			{char}
-		</Box>
+		/>
 	)
 }
 

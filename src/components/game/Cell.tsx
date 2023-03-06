@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext } from 'react'
 
 import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid'
 
 import { GameContext } from '../game'
 import { doesWordContainLetter } from '../../utils/doesWordContainLetter'
@@ -24,13 +23,13 @@ const Cell = ({ letter, index }: CellProps) => {
 	const { currentWord, currentGrid, setCurrentGrid, savedGrid } = useContext(
 		GameContext
 	) as CellContext
-	
+
 	/**
 	 * Triggers when a player types a word, or complete a bing line.
 	 * Changes the color of cells.
-	 * 
+	 *
 	 * gray[#3A3A3C] if no matches are found.
-	 * red[#AC3E3E] if the letter in the cell is contained in the word a player typing. 
+	 * red[#AC3E3E] if the letter in the cell is contained in the word a player typing.
 	 * yellow[#B59F3B] if the letter in the cell is contained in the word a player entered.
 	 * green[#538D4E] if the letter in the cell is a part of the letters that complete a bingo line.
 	 */
@@ -53,23 +52,24 @@ const Cell = ({ letter, index }: CellProps) => {
 	}, [currentWord, savedGrid])
 
 	return (
-		<Grid item flexBasis='18%'>
-			<Box
-				sx={{
-					border: 1,
-					color: 'white',
-					borderColor: cellColor,
-					backgroundColor: cellColor,
-					fontSize: '1.75rem',
-					aspectRatio: '1',
-				}}
-				alignItems='center'
-				justifyContent='center'
-				display='flex'
-			>
-				{letter}
-			</Box>
-		</Grid>
+		<Box
+			sx={{
+				border: 1,
+				color: 'white',
+				borderColor: cellColor,
+				backgroundColor: cellColor,
+				fontSize: '1.75rem',
+				aspectRatio: '1',
+				'&:before': {
+					content: `"${letter}"`,
+					display: 'inline-block',
+				},
+			}}
+			width='100%'
+			alignItems='center'
+			justifyContent='center'
+			display='inline-flex'
+		/>
 	)
 }
 

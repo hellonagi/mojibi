@@ -29,6 +29,10 @@ const theme = createTheme({
 					fieldset: {
 						borderColor: grey[500],
 					},
+					input: {
+						width: 120,
+						padding: '4px 16px 4px 16px',
+					},
 				},
 			},
 		},
