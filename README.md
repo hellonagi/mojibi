@@ -1,2 +1,2 @@
-# Kotobi
-言葉のビンゴ Kotobi
+# Mojibi
+文字のビンゴ Mojibi
