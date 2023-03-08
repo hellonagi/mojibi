@@ -18,7 +18,7 @@ const Game = () => {
 	// Prevents the 100vh problem that the viewport is not constant in some mobile browsers
 	const documentHeight = () => {
 		const doc = document.documentElement
-		doc.style.setProperty('--doc-height', `${window.innerHeight}px`)
+		doc.style.setProperty('--doc-height', `calc(${window.innerHeight}px - 56px)`)
 	}
 	window.addEventListener('resize', documentHeight)
 	documentHeight()

@@ -45,15 +45,15 @@ const Bingo = () => {
 	}, [enteredWords])
 
 	return (
-		<Box flexGrow={1} display='flex' justifyContent='center' alignItems='center'>
+		<Box mt={1} flexGrow={1} display='flex' justifyContent='center' alignItems='center'>
 			<Box>
 				{/* <UpperInfo /> */}
 				<Box
-					minWidth={340}
+					minWidth={320}
 					display='grid'
 					gridTemplateColumns='repeat(5, 1fr)'
 					gridTemplateRows='repeat(5, 1fr)'
-					gap={1}
+					gap={0.75}
 				>
 					{bingoLetters.map((letter, index) => {
 						return <Cell letter={letter} index={index} key={letter} />

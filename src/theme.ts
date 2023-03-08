@@ -8,9 +8,20 @@ const theme = createTheme({
 		},
 	},
 	typography: {
+		h1: {
+			fontSize: 26,
+			fontWeight: 500,
+		},
+		h2: {
+			fontSize: 20,
+			fontWeight: 600,
+		},
 		caption: {
 			fontSize: 10,
 		},
+		body1: {
+			fontSize: 12,
+		}
 	},
 	palette: {
 		mode: 'dark',
