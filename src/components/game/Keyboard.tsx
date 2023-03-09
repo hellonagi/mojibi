@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react'
+import { useContext } from 'react'
 
 import Box from '@mui/material/Box'
 import Button, { ButtonProps } from '@mui/material/Button'
@@ -6,10 +6,13 @@ import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
 import BackspaceOutlinedIcon from '@mui/icons-material/BackspaceOutlined'
 
-import { GameContext } from '../game'
+import { GameContext } from '../../App'
 import { VALID_WORDS } from '../../constants/validWords'
 import { HIRAGANA_KEYS } from '../../constants/hiraganaKeys'
 import { HIRAGANA_CONVERSION_MAP } from '../../constants/hiraganaConversionMap'
+import { checkForMatchedLetters } from '../../utils/checkForMatchedLetters'
+import { checkForBingoLines } from '../../utils/checkForBingoLines'
+import { bingoCharacters } from './BingoGrid'
 
 interface KeyProps extends ButtonProps {
 	isHidden?: boolean
@@ -42,66 +45,87 @@ const KeyButton: React.FC<KeyProps> = ({
 }
 
 interface KeyboardProps {
+	currentWord: string
 	setCurrentWord: React.Dispatch<React.SetStateAction<string>>
 	enteredWords: string[]
 	setEnteredWords: React.Dispatch<React.SetStateAction<string[]>>
+	savedGrid: number[]
+	setSavedGrid: React.Dispatch<React.SetStateAction<number[]>>
 }
 
 const Keyboard = () => {
-	const { setCurrentWord, enteredWords, setEnteredWords } = useContext(GameContext) as KeyboardProps
-	const [value, setValue] = useState<string>('')
+	console.log('keyboard')
+	const { currentWord, setCurrentWord, enteredWords, setEnteredWords, savedGrid, setSavedGrid } =
+		useContext(GameContext) as KeyboardProps
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const word = e.target.value.slice(0, 4)
-		setValue(word)
+		setCurrentWord(word)
 	}
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		if (value.length !== 4) {
-			console.log(value + ' is not 4-kana word')
+		if (currentWord.length !== 4) {
+			console.log(currentWord + ' is not 4-kana word')
 			return
 		}
 
 		let isValid = false
-		if (VALID_WORDS.includes(value)) {
+		if (VALID_WORDS.includes(currentWord)) {
 			isValid = true
 		}
 
 		if (isValid) {
-			setEnteredWords([...enteredWords, value])
-			setValue('')
+			const tmpSavedGrid = savedGrid.concat()
+
+			// Changes elements of savedGird to 1 if their corresponding letters match the letters in the last word.
+			const gridWithMatchedLetters = checkForMatchedLetters(
+				currentWord,
+				tmpSavedGrid,
+				bingoCharacters
+			)
+
+			// Changes elements of savedGrid to 2 if their corresponding letters complete a row, column, or diagonal.
+			const gridWithBingoLines = checkForBingoLines(gridWithMatchedLetters)
+
+			const evaluations = gridWithBingoLines
+			setSavedGrid(gridWithBingoLines)
+			setCurrentWord('')
+
+			const wordHistory = [...enteredWords, currentWord]
+			setEnteredWords(wordHistory)
+			const mojibiState = localStorage.getItem('mojibi_state')
+			if (mojibiState) {
+				const retrievedMojibiState = JSON.parse(mojibiState)
+				localStorage.setItem(
+					'mojibi_state',
+					JSON.stringify({ ...retrievedMojibiState, wordHistory, evaluations })
+				)
+			}
+
 			console.log(enteredWords)
 		} else {
-			console.log(value + ' is not in word list')
+			console.log(currentWord + ' is not in word list')
 		}
 	}
 
 	const handleKeyClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-		e.preventDefault()
 		const clickedLetter = e.currentTarget.innerText
-		const word = (value + clickedLetter).slice(0, 4)
-		setValue(word)
+		const word = (currentWord + clickedLetter).slice(0, 4)
+		setCurrentWord(word)
 	}
 
-	const handleConversionKeyClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-		e.preventDefault()
-		const convertingKey = value.slice(-1)
+	const handleConversionKeyClick = () => {
+		const convertingKey = currentWord.slice(-1)
 		const convertedKey = HIRAGANA_CONVERSION_MAP.get(convertingKey)
 		if (typeof convertedKey !== 'undefined') {
-			setValue(value.slice(0, -1) + convertedKey)
+			setCurrentWord(currentWord.slice(0, -1) + convertedKey)
 		}
 	}
 
-	const handleBackspaceKeyClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-		e.preventDefault()
-		setValue(value.slice(0, -1))
+	const handleBackspaceKeyClick = () => {
+		setCurrentWord(currentWord.slice(0, -1))
 	}
-
-	useEffect(() => {
-		console.log(value)
-		setCurrentWord(value)
-	}, [value])
 
 	return (
 		<Box textAlign='center' mb={1.5}>
@@ -110,7 +134,7 @@ const Keyboard = () => {
 					<TextField
 						autoComplete='off'
 						onChange={handleChange}
-						value={value}
+						value={currentWord}
 						inputProps={{
 							maxLength: 4,
 						}}

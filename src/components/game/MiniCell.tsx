@@ -1,45 +1,43 @@
-import { useEffect, useState, useContext } from 'react'
+import { useContext } from 'react'
 
 import Box from '@mui/material/Box'
 
-import { GameContext } from '../game'
-import { bingoLetters } from './BingoGrid'
+import { GameContext } from '../../App'
+import { bingoCharacters } from './BingoGrid'
 
 interface MiniCellProps {
 	char: string
-	isFilled: boolean
-	isCurrent: boolean
+	state: string
 }
 
 interface MiniCellContext {
 	savedGrid: number[]
 }
 
-const MiniCell = ({ char, isFilled, isCurrent }: MiniCellProps) => {
+const MiniCell = ({ char, state }: MiniCellProps) => {
 	const { savedGrid } = useContext(GameContext) as MiniCellContext
-	const [cellColor, setCellColor] = useState<string>('unset')
-	const [borderColor, setBorderColor] = useState<string>('#3A3A3C')
+	let cellColor = 'unset'
+	let borderColor = '#3A3A3C'
 
-	useEffect(() => {
-		const ind = bingoLetters.indexOf(char)
+	const ind = bingoCharacters.indexOf(char)
 
-		if (isCurrent) {
-			setBorderColor('#AC3E3E')
-		}
-		if (!isFilled) return
+	if (state === 'current') {
+		borderColor = '#AC3E3E'
+	}
+	if (state === 'filled') {
 		if (typeof savedGrid[ind] === 'undefined') {
-			setCellColor('#3A3A3C')
-			setBorderColor('#3A3A3C')
+			cellColor = '#3A3A3C'
+			borderColor = '#3A3A3C'
 		}
 		if (savedGrid[ind] === 1) {
-			setCellColor('#B59F3B')
-			setBorderColor('#B59F3B')
+			cellColor = '#B59F3B'
+			borderColor = '#B59F3B'
 		}
 		if (savedGrid[ind] === 2) {
-			setCellColor('#538D4E')
-			setBorderColor('#538D4E')
+			cellColor = '#538D4E'
+			borderColor = '#538D4E'
 		}
-	}, [savedGrid])
+	}
 
 	return (
 		<Box

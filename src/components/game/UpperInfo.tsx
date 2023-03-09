@@ -3,7 +3,7 @@ import { useEffect, useState, useContext } from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 
-import { GameContext } from '../game'
+import { GameContext } from '../../App'
 import { calcLinesAndScore } from '../../utils/calcLinesAndScore'
 
 interface UpperInfoContext {

@@ -1,8 +1,8 @@
-import { useEffect, useState, useContext } from 'react'
+import { useContext } from 'react'
 
 import Box from '@mui/material/Box'
 
-import { GameContext } from '../game'
+import { GameContext } from '../../App'
 import MiniCell from './MiniCell'
 
 interface LowerInfoContext {
@@ -12,18 +12,18 @@ interface LowerInfoContext {
 
 const LowerInfo = () => {
 	const { currentWord, enteredWords } = useContext(GameContext) as LowerInfoContext
-	const [history, setHistory] = useState<string[]>([])
 
-	useEffect(() => {
-		const tmpHistory = enteredWords.concat()
+	const tmpHistory = [...enteredWords]
+	if (tmpHistory.length < 8) {
 		tmpHistory.push(currentWord)
-		for (let i = 0; i < 8; i++) {
-			if (typeof tmpHistory[i] === 'undefined') {
-				tmpHistory.push('')
-			}
+	}
+	for (let i = 0; i < 8; i++) {
+		if (typeof tmpHistory[i] === 'undefined') {
+			tmpHistory.push('')
 		}
-		setHistory(tmpHistory)
-	}, [currentWord])
+	}
+
+	console.log('lower info')
 
 	return (
 		<Box
@@ -35,22 +35,22 @@ const LowerInfo = () => {
 				gap: 0.5,
 			}}
 		>
-			{history.map((word, index) => {
+			{tmpHistory.map((word, index) => {
 				const rows = []
-				let isCurrent = false
-				if (enteredWords.length === index){
-					isCurrent = true
+				let state = 'empty'
+				if (enteredWords.length === index) {
+					state = 'current'
+				} else if (enteredWords.length > index) {
+					state = 'filled'
 				}
 
 				for (let i = 0; i < 4; i++) {
 					let char = '　'
-					let isFilled = false
 					if (typeof word[i] !== 'undefined') {
 						char = word[i]
-						isFilled = true
 					}
 
-					rows.push(<MiniCell key={i} char={char} isFilled={isFilled} isCurrent={isCurrent} />)
+					rows.push(<MiniCell key={i} char={char} state={state} />)
 				}
 
 				return (
