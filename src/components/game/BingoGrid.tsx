@@ -3,7 +3,6 @@ import Box from '@mui/material/Box'
 import { getBingoChars } from '../../utils/getBingoChars'
 import { convertUnixToDate } from '../../utils/convertUnixToDate'
 import Cell from './Cell'
-// import UpperInfo from './UpperInfo'
 import LowerInfo from './LowerInfo'
 
 // Random 25 characters in Bingo Grid
@@ -15,7 +14,6 @@ const Bingo = () => {
 	return (
 		<Box mt={1} flexGrow={1} display='flex' justifyContent='center' alignItems='center'>
 			<Box>
-				{/* <UpperInfo /> */}
 				<Box
 					minWidth={320}
 					display='grid'
