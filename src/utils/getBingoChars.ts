@@ -2,13 +2,13 @@
  * Bingo Characters
  * It excludes ぢ、を, ゎ because there's few words that contain them
  */
-const hiraganaNormal =
+export const hiraganaNormal =
 	'あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわん'
-const hiraganaSpecial = 'ぁぃぅぇぉがぎぐげござじずぜぞだづでどっばびぶべぼぱぴぷぺぽゃゅょー'
+export const hiraganaSpecial = 'ぁぃぅぇぉがぎぐげござじずぜぞだづでどっばびぶべぼぱぴぷぺぽゃゅょー'
 
 /**
- * Generates random hiragana characters array without duplicates (length = 25).
- * The ratio of Normal Characters to Special Ones depends on the difficulty 
+ * Generates an array of random hiragana characters without duplicates (length = 25).
+ * The ratio of normal characters to special ones depends on the difficulty
  * (Normal: 20:5 Hard: 18:7).
  *
  * @param seed - The seed value comes from today's date

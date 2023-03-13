@@ -20,6 +20,7 @@ const Bingo = () => {
 					gridTemplateColumns='repeat(5, 1fr)'
 					gridTemplateRows='repeat(5, 1fr)'
 					gap={0.75}
+					data-testid='cells'
 				>
 					{bingoCharacters.map((char, index) => {
 						return <Cell char={char} index={index} key={char} />

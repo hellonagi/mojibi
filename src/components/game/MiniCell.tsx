@@ -25,17 +25,15 @@ const MiniCell = ({ char, state }: MiniCellProps) => {
 		borderColor = '#AC3E3E'
 	}
 	if (state === 'filled') {
-		if (typeof savedGrid[ind] === 'undefined') {
-			cellColor = '#3A3A3C'
-			borderColor = '#3A3A3C'
-		}
 		if (savedGrid[ind] === 1) {
 			cellColor = '#B59F3B'
 			borderColor = '#B59F3B'
-		}
-		if (savedGrid[ind] === 2) {
+		} else if (savedGrid[ind] === 2) {
 			cellColor = '#538D4E'
 			borderColor = '#538D4E'
+		} else {
+			cellColor = '#3A3A3C'
+			borderColor = '#3A3A3C'
 		}
 	}
 
@@ -57,6 +55,7 @@ const MiniCell = ({ char, state }: MiniCellProps) => {
 			alignItems='center'
 			justifyContent='center'
 			display='flex'
+			data-testid='mini-cell'
 		/>
 	)
 }

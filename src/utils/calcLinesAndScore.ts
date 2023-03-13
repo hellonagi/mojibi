@@ -9,7 +9,7 @@
  * @returns [number, number]
  * @example
  * ```
- * // [21, 3]
+ * // [3, 23]
  * const grid = [1, 1, 0, 2, 2,
  * 							 0, 0, 1, 2, 0,
  * 							 2, 2, 2, 2, 2,

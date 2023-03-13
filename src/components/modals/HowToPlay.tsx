@@ -25,7 +25,6 @@ interface HTPContext {
 }
 
 const HowToPlay = () => {
-	console.log('how to play')
 	const { openHTP, setOpenHTP } = useContext(HeaderContext) as HTPContext
 	const bingoExample = 'ろつとらっもどむさなまゆほぐぬけょすれにぶひゅーぽ'.split('')
 	const bingoState = '1003022222001010000011030'.split('')

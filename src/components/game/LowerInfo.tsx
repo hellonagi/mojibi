@@ -23,8 +23,6 @@ const LowerInfo = () => {
 		}
 	}
 
-	console.log('lower info')
-
 	return (
 		<Box
 			my={1}
@@ -54,7 +52,7 @@ const LowerInfo = () => {
 				}
 
 				return (
-					<Box key={index} display='flex'>
+					<Box key={index} display='flex' data-testid='mini-cells'>
 						{rows}
 					</Box>
 				)

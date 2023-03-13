@@ -1,6 +1,7 @@
 /**
- * Checks if the grid has bingo lines.
- *
+ * Checks if the array has any lines that contain only 1 or 2.
+ * If the corresponding element's value is 1, changes to 2.
+ * 
  * @param grid - The first input number array
  * @returns number array
  * @example

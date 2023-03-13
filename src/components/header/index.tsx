@@ -28,10 +28,10 @@ const Header = () => {
 					Mojibi
 				</Typography>
 				<Box display='flex'>
-					<IconButton color='inherit' onClick={handleHelpClick}>
+					<IconButton aria-label='open how-to-play' color='inherit' onClick={handleHelpClick}>
 						<HelpOutlineIcon />
 					</IconButton>
-					<IconButton color='inherit'>
+					<IconButton aria-label='open statistics' color='inherit'>
 						<LeaderboardIcon />
 					</IconButton>
 				</Box>

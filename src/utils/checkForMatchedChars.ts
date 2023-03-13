@@ -1,10 +1,11 @@
 /**
- * Checks if the letter in Bingo Grid matches the letter contained in the word a player typing
- *
+ * Checks every character within the player's word against characters in the Bingo Grid
+ * Changes the corresponding element's value from 0 to 1 if there is a match
+ * 
  * @param word - The first input string
  * @param grid - The second input number array
- * @param bingoLetters - The third input string array
- * @returns true if the word contains the letter, false if not
+ * @param bingoChars - The third input string array
+ * @returns number array
  * @example
  * ```
  * // [0, 0, 1, 0, 0,
@@ -18,23 +19,22 @@
  * 							 0, 0, 0, 0, 0,
  * 							 0, 0, 0, 0, 0,
  * 							 0, 0, 0, 0, 0,]
- * const bingoLetters = ['す', 'い', 'り', 'ど', 'う',
+ * const bingoChars = ['す', 'い', 'り', 'ど', 'う',
  * 											 'よ', 'あ', 'う', 'づ', 'と',
  * 											 'た', 'ぽ', 'お', 'け', 'ぼ',
  * 											 'ろ', 'や', 'ぬ', 'し', 'の',
  * 											 'ゃ', 'ふ', 'れ', 'そ', 'ほ',]
- * console.log(checkForMatchedLetters(word, grid, bingoLetters))
+ * console.log(checkForMatchedChars(word, grid, bingoChars))
  * ```
  */
-export const checkForMatchedLetters = (
+export const checkForMatchedChars = (
 	word: string,
 	grid: number[],
-	bingoLetters: string[]
+	bingoChars: string[]
 ): number[] => {
 	for (let i = 0; i < word.length; i++) {
-		bingoLetters.forEach((letter, index) => {
+		bingoChars.forEach((letter, index) => {
 			if (word[i] === letter) {
-				console.log('match')
 				grid[index] = 1
 			}
 		})

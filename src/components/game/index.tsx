@@ -15,7 +15,7 @@ const Game = () => {
 
 	return (
 		<Container maxWidth='xs' sx={{ px: 1 }}>
-			<Box display='flex' flexDirection='column' className='container'>
+			<Box display='flex' flexDirection='column' className='container' data-testid='index-box'>
 				<BingoGrid />
 				<Keyboard />
 			</Box>

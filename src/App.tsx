@@ -23,7 +23,6 @@ const defaultMojibiState = {
 }
 
 function App() {
-	console.log('app')
 	const [currentWord, setCurrentWord] = useState<string>('')
 	const [enteredWords, setEnteredWords] = useState<string[]>([])
 	const [savedGrid, setSavedGrid] = useState<number[]>(DEFAULT_GRID.concat())

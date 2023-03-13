@@ -53,6 +53,7 @@ const Cell = ({ char, index }: CellProps) => {
 			alignItems='center'
 			justifyContent='center'
 			display='inline-flex'
+			data-testid='cell'
 		/>
 	)
 }

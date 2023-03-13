@@ -10,7 +10,7 @@ import { GameContext } from '../../App'
 import { VALID_WORDS } from '../../constants/validWords'
 import { HIRAGANA_KEYS } from '../../constants/hiraganaKeys'
 import { HIRAGANA_CONVERSION_MAP } from '../../constants/hiraganaConversionMap'
-import { checkForMatchedLetters } from '../../utils/checkForMatchedLetters'
+import { checkForMatchedChars } from '../../utils/checkForMatchedChars'
 import { checkForBingoLines } from '../../utils/checkForBingoLines'
 import { bingoCharacters } from './BingoGrid'
 
@@ -54,7 +54,6 @@ interface KeyboardProps {
 }
 
 const Keyboard = () => {
-	console.log('keyboard')
 	const { currentWord, setCurrentWord, enteredWords, setEnteredWords, savedGrid, setSavedGrid } =
 		useContext(GameContext) as KeyboardProps
 
@@ -79,7 +78,7 @@ const Keyboard = () => {
 			const tmpSavedGrid = savedGrid.concat()
 
 			// Changes elements of savedGird to 1 if their corresponding letters match the letters in the last word.
-			const gridWithMatchedLetters = checkForMatchedLetters(
+			const gridWithMatchedLetters = checkForMatchedChars(
 				currentWord,
 				tmpSavedGrid,
 				bingoCharacters
@@ -129,7 +128,7 @@ const Keyboard = () => {
 
 	return (
 		<Box textAlign='center' mb={1.5}>
-			<form onSubmit={handleSubmit} id='keyForm'>
+			<form onSubmit={handleSubmit} id='keyForm' data-testid='key-form'>
 				<Box display='flex' justifyContent='center'>
 					<TextField
 						autoComplete='off'
@@ -137,6 +136,7 @@ const Keyboard = () => {
 						value={currentWord}
 						inputProps={{
 							maxLength: 4,
+							'data-testid': 'key-input',
 						}}
 					/>
 					<Button
@@ -160,6 +160,7 @@ const Keyboard = () => {
 					direction: 'rtl',
 					gap: 0.5,
 				}}
+				data-testid='keyboard'
 			>
 				{HIRAGANA_KEYS.map((char, ind) => {
 					const isHidden = char === 'X'
