@@ -52,7 +52,7 @@ const LowerInfo = () => {
 				}
 
 				return (
-					<Box key={index} display='flex' data-testid='mini-cells'>
+					<Box key={index} display='flex' data-testid='word-box'>
 						{rows}
 					</Box>
 				)

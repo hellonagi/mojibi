@@ -17,6 +17,7 @@ import { bingoCharacters } from './BingoGrid'
 interface KeyProps extends ButtonProps {
 	isHidden?: boolean
 	isMultipleLine?: boolean
+	testId?: string | null
 }
 
 const KeyButton: React.FC<KeyProps> = ({
@@ -24,6 +25,7 @@ const KeyButton: React.FC<KeyProps> = ({
 	children,
 	isHidden = false,
 	isMultipleLine = false,
+	testId = null,
 }: KeyProps) => {
 	return (
 		<Button
@@ -38,6 +40,7 @@ const KeyButton: React.FC<KeyProps> = ({
 				flexFlow: isMultipleLine ? 'column' : 'row',
 			}}
 			onClick={onClick}
+			data-testid={testId}
 		>
 			{children}
 		</Button>
@@ -109,7 +112,7 @@ const Keyboard = () => {
 	}
 
 	const handleKeyClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-		const clickedLetter = e.currentTarget.innerText
+		const clickedLetter = e.currentTarget.textContent
 		const word = (currentWord + clickedLetter).slice(0, 4)
 		setCurrentWord(word)
 	}
@@ -167,7 +170,12 @@ const Keyboard = () => {
 
 					if (char === 'C') {
 						return (
-							<KeyButton key={ind} onClick={handleConversionKeyClick} isMultipleLine={true}>
+							<KeyButton
+								key={ind}
+								onClick={handleConversionKeyClick}
+								isMultipleLine={true}
+								testId='conv-key'
+							>
 								<Typography variant='caption'>゛゜</Typography>
 								<Typography variant='caption' whiteSpace='nowrap'>
 									大⇔小
@@ -177,7 +185,7 @@ const Keyboard = () => {
 					}
 					if (char === 'B') {
 						return (
-							<KeyButton key={ind} onClick={handleBackspaceKeyClick}>
+							<KeyButton key={ind} onClick={handleBackspaceKeyClick} testId='delete-key'>
 								<BackspaceOutlinedIcon fontSize='small' />
 							</KeyButton>
 						)

@@ -20,9 +20,9 @@ const setup = () => {
 }
 
 describe('renders LowerInfo', () => {
-	it('should render mini cells', () => {
+	it('should render 8 word boxes', () => {
 		setup()
-		const words = screen.getAllByTestId('mini-cells')
-		expect(words).toHaveLength(8)
+		const wordBoxes = screen.getAllByTestId('word-box')
+		expect(wordBoxes).toHaveLength(8)
 	})
 })
