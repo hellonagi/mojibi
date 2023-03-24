@@ -6,6 +6,7 @@ import theme from './theme'
 import Header from './components/header'
 import Game from './components/game'
 import HowToPlay from './components/modals/HowToPlay'
+import ErrorMsg from './components/snackbars/ErrorMsg'
 import { DEFAULT_GRID } from './constants/defaultGrid'
 
 import { convertUnixToDate } from './utils/convertUnixToDate'
@@ -27,6 +28,8 @@ function App() {
 	const [enteredWords, setEnteredWords] = useState<string[]>([])
 	const [savedGrid, setSavedGrid] = useState<number[]>(DEFAULT_GRID.concat())
 	const [openHTP, setOpenHTP] = useState<boolean>(false)
+	const [openErrorMsg, setOpenErrorMsg] = useState<boolean>(false)
+	const [errorMsg, setErrorMsg] = useState<string>('')
 
 	useEffect(() => {
 		const hasVisited = localStorage.getItem('has_visited')
@@ -73,9 +76,14 @@ function App() {
 					setEnteredWords,
 					savedGrid,
 					setSavedGrid,
+					openErrorMsg,
+					setOpenErrorMsg,
+					errorMsg,
+					setErrorMsg,
 				}}
 			>
 				<Game />
+				<ErrorMsg />
 			</GameContext.Provider>
 		</ThemeProvider>
 	)

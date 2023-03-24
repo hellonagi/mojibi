@@ -21,7 +21,7 @@ const theme = createTheme({
 		},
 		body1: {
 			fontSize: 12,
-		}
+		},
 	},
 	palette: {
 		mode: 'dark',
@@ -55,6 +55,21 @@ const theme = createTheme({
 					},
 					'&:hover .MuiOutlinedInput-notchedOutline': {
 						borderColor: grey[400],
+					},
+				},
+			},
+		},
+		MuiSnackbar: {
+			styleOverrides: {
+				root: {
+					top: 32,
+					minWidth: 240,
+				},
+				anchorOriginTopCenter: {
+					'@media (min-width: 420px)': {
+						left: '50%',
+						right: 'auto',
+						transform: 'translateX(-50%)',
 					},
 				},
 			},

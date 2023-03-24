@@ -54,11 +54,21 @@ interface KeyboardProps {
 	setEnteredWords: React.Dispatch<React.SetStateAction<string[]>>
 	savedGrid: number[]
 	setSavedGrid: React.Dispatch<React.SetStateAction<number[]>>
+	setOpenErrorMsg: React.Dispatch<React.SetStateAction<boolean>>
+	setErrorMsg: React.Dispatch<React.SetStateAction<string>>
 }
 
 const Keyboard = () => {
-	const { currentWord, setCurrentWord, enteredWords, setEnteredWords, savedGrid, setSavedGrid } =
-		useContext(GameContext) as KeyboardProps
+	const {
+		currentWord,
+		setCurrentWord,
+		enteredWords,
+		setEnteredWords,
+		savedGrid,
+		setSavedGrid,
+		setOpenErrorMsg,
+		setErrorMsg,
+	} = useContext(GameContext) as KeyboardProps
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const word = e.target.value.slice(0, 4)
@@ -69,6 +79,8 @@ const Keyboard = () => {
 		e.preventDefault()
 		if (currentWord.length !== 4) {
 			console.log(currentWord + ' is not 4-kana word')
+			setErrorMsg('ひらがな4文字を入力してください')
+			setOpenErrorMsg(true)
 			return
 		}
 
@@ -107,6 +119,8 @@ const Keyboard = () => {
 
 			console.log(enteredWords)
 		} else {
+			setErrorMsg(`${currentWord} は辞書にありません`)
+			setOpenErrorMsg(true)
 			console.log(currentWord + ' is not in word list')
 		}
 	}
