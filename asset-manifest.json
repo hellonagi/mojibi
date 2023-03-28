@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/mojibi/static/css/main.19f97c41.css",
-    "main.js": "/mojibi/static/js/main.015c0d88.js",
-    "static/js/787.e39981d0.chunk.js": "/mojibi/static/js/787.e39981d0.chunk.js",
+    "main.css": "/mojibi/static/css/main.a162c286.css",
+    "main.js": "/mojibi/static/js/main.c58e0f89.js",
+    "static/js/787.7e8f4144.chunk.js": "/mojibi/static/js/787.7e8f4144.chunk.js",
     "index.html": "/mojibi/index.html",
-    "main.19f97c41.css.map": "/mojibi/static/css/main.19f97c41.css.map",
-    "main.015c0d88.js.map": "/mojibi/static/js/main.015c0d88.js.map",
-    "787.e39981d0.chunk.js.map": "/mojibi/static/js/787.e39981d0.chunk.js.map"
+    "main.a162c286.css.map": "/mojibi/static/css/main.a162c286.css.map",
+    "main.c58e0f89.js.map": "/mojibi/static/js/main.c58e0f89.js.map",
+    "787.7e8f4144.chunk.js.map": "/mojibi/static/js/787.7e8f4144.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.19f97c41.css",
-    "static/js/main.015c0d88.js"
+    "static/css/main.a162c286.css",
+    "static/js/main.c58e0f89.js"
   ]
 }
