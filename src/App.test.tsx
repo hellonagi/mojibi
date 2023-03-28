@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom'
-import { render, screen, fireEvent, within } from '@testing-library/react'
+import { render, screen, fireEvent, within, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import App from './App'
 
@@ -57,9 +57,9 @@ describe('App component', () => {
 		describe('Keyboard', () => {
 			describe('On-Screen Keyboard', () => {
 				describe('When you click あ', () => {
-					beforeEach(() => {
+					beforeEach(async () => {
 						const keys = screen.getByTestId('keyboard')
-						const A = within(keys).getByRole('button', { name: 'あ' })
+						const A = within(keys).getByRole('button', { name: /あ/i, hidden: true })
 						userEvent.click(A)
 					})
 
@@ -72,7 +72,7 @@ describe('App component', () => {
 				describe('When you click か, then click the conversion button', () => {
 					beforeEach(() => {
 						const keys = screen.getByTestId('keyboard')
-						const KA = within(keys).getByRole('button', { name: 'か' })
+						const KA = within(keys).getByRole('button', { name: /か/i, hidden: true })
 						const CONV = within(keys).getByTestId('conv-key')
 						userEvent.click(KA)
 						userEvent.click(CONV)
@@ -87,7 +87,7 @@ describe('App component', () => {
 				describe('When you click は, then click the conversion button twice', () => {
 					beforeEach(() => {
 						const keys = screen.getByTestId('keyboard')
-						const HA = within(keys).getByRole('button', { name: 'は' })
+						const HA = within(keys).getByRole('button', { name: /は/i, hidden: true })
 						const CONV = within(keys).getByTestId('conv-key')
 						userEvent.click(HA)
 						userEvent.click(CONV)
@@ -103,8 +103,8 @@ describe('App component', () => {
 				describe('When you click あい, then click the backspace button', () => {
 					beforeEach(() => {
 						const keys = screen.getByTestId('keyboard')
-						const A = within(keys).getByRole('button', { name: 'あ' })
-						const I = within(keys).getByRole('button', { name: 'い' })
+						const A = within(keys).getByRole('button', { name: /あ/i, hidden: true })
+						const I = within(keys).getByRole('button', { name: /い/i, hidden: true })
 						const DELETE = within(keys).getByTestId('delete-key')
 						userEvent.click(A)
 						userEvent.click(I)
@@ -146,7 +146,7 @@ describe('App component', () => {
 				it('あ, さ, な turn yellow, the others remains gray', async () => {
 					const textInput = screen.getByTestId<HTMLInputElement>('key-input')
 					fireEvent.change(textInput, { target: { value: 'あさなぎ' } })
-					const ENTER = screen.getByRole('button', { name: 'ENTER' })
+					const ENTER = screen.getByRole('button', { name: /ENTER/i, hidden: true })
 					userEvent.click(ENTER)
 
 					const cells = screen.getAllByTestId('cell')
@@ -175,7 +175,7 @@ describe('App component', () => {
 				it('あ, か, さ, た, な turn green, く turns yellow, the others remains gray', async () => {
 					const textInput = screen.getByTestId<HTMLInputElement>('key-input')
 					fireEvent.change(textInput, { target: { value: 'かたくり' } })
-					const ENTER = screen.getByRole('button', { name: 'ENTER' })
+					const ENTER = screen.getByRole('button', { name: /ENTER/i, hidden: true })
 					userEvent.click(ENTER)
 
 					const cells = screen.getAllByTestId('cell')

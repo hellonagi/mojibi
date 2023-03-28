@@ -11,14 +11,22 @@ import LeaderboardIcon from '@mui/icons-material/Leaderboard'
 import { HeaderContext } from '../../App'
 interface HTPContext {
 	setOpenHTP: React.Dispatch<React.SetStateAction<boolean>>
+	setOpenStat: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const Header = () => {
-	const { setOpenHTP } = useContext(HeaderContext) as HTPContext
+	const { setOpenHTP, setOpenStat } = useContext(HeaderContext) as HTPContext
 
 	const handleHelpClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault()
+		setOpenStat(false)
 		setOpenHTP(true)
+	}
+
+	const handleStatClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+		e.preventDefault()
+		setOpenHTP(false)
+		setOpenStat(true)
 	}
 
 	return (
@@ -31,7 +39,7 @@ const Header = () => {
 					<IconButton aria-label='open how-to-play' color='inherit' onClick={handleHelpClick}>
 						<HelpOutlineIcon />
 					</IconButton>
-					<IconButton aria-label='open statistics' color='inherit'>
+					<IconButton aria-label='open statistics' color='inherit' onClick={handleStatClick}>
 						<LeaderboardIcon />
 					</IconButton>
 				</Box>

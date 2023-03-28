@@ -6,13 +6,14 @@ import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
 import BackspaceOutlinedIcon from '@mui/icons-material/BackspaceOutlined'
 
-import { GameContext } from '../../App'
+import { GameContext, mojibiState, mojibiStats } from '../../App'
 import { VALID_WORDS } from '../../constants/validWords'
 import { HIRAGANA_KEYS } from '../../constants/hiraganaKeys'
 import { HIRAGANA_CONVERSION_MAP } from '../../constants/hiraganaConversionMap'
 import { checkForMatchedChars } from '../../utils/checkForMatchedChars'
 import { checkForBingoLines } from '../../utils/checkForBingoLines'
 import { bingoCharacters } from './BingoGrid'
+import { calcLinesAndScore } from '../../utils/calcLinesAndScore'
 
 interface KeyProps extends ButtonProps {
 	isHidden?: boolean
@@ -56,6 +57,8 @@ interface KeyboardProps {
 	setSavedGrid: React.Dispatch<React.SetStateAction<number[]>>
 	setOpenErrorMsg: React.Dispatch<React.SetStateAction<boolean>>
 	setErrorMsg: React.Dispatch<React.SetStateAction<string>>
+	setOpenStat: React.Dispatch<React.SetStateAction<boolean>>
+	setLines: React.Dispatch<React.SetStateAction<number>>
 }
 
 const Keyboard = () => {
@@ -68,6 +71,7 @@ const Keyboard = () => {
 		setSavedGrid,
 		setOpenErrorMsg,
 		setErrorMsg,
+		setOpenStat,
 	} = useContext(GameContext) as KeyboardProps
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -108,16 +112,46 @@ const Keyboard = () => {
 
 			const wordHistory = [...enteredWords, currentWord]
 			setEnteredWords(wordHistory)
-			const mojibiState = localStorage.getItem('mojibi_state')
-			if (mojibiState) {
-				const retrievedMojibiState = JSON.parse(mojibiState)
-				localStorage.setItem(
-					'mojibi_state',
-					JSON.stringify({ ...retrievedMojibiState, wordHistory, evaluations })
-				)
-			}
+
+			const [completedLines, score] = calcLinesAndScore(gridWithBingoLines)
+
+			mojibiState['completedLines'] = completedLines
+			mojibiState['evaluations'] = evaluations
+			localStorage.setItem(
+				'mojibi_state',
+				JSON.stringify({ ...mojibiState, wordHistory, evaluations, completedLines })
+			)
 
 			console.log(enteredWords)
+
+			// When the game finishes
+			if (wordHistory.length === 8) {
+				const gameStatus = completedLines > 0 ? 'WIN' : 'FAIL'
+				mojibiState['gameStatus'] = gameStatus
+				mojibiStats['gamesPlayed'] += 1
+
+				if (gameStatus === 'WIN') {
+					mojibiStats['gamesWon'] += 1
+					mojibiStats['currentWinStreak'] += 1
+					if (mojibiStats['currentWinStreak'] > mojibiStats['maxWinStreak']) {
+						mojibiStats['maxWinStreak'] = mojibiStats['currentWinStreak']
+					}
+					mojibiStats['lines'][completedLines] += 1
+				} else {
+					mojibiStats['lines'][0] += 1
+					mojibiStats['currentWinStreak'] = 0
+				}
+				mojibiStats['winPercentage'] = (mojibiStats['gamesWon'] / mojibiStats['gamesPlayed']) * 100
+
+				localStorage.setItem(
+					'mojibi_state',
+					JSON.stringify({ ...mojibiState, wordHistory, evaluations, completedLines, gameStatus })
+				)
+				localStorage.setItem('mojibi_stats', JSON.stringify(mojibiStats))
+
+				// Open stats modal
+				setOpenStat(true)
+			}
 		} else {
 			setErrorMsg(`${currentWord} は辞書にありません`)
 			setOpenErrorMsg(true)
@@ -189,6 +223,7 @@ const Keyboard = () => {
 								onClick={handleConversionKeyClick}
 								isMultipleLine={true}
 								testId='conv-key'
+								
 							>
 								<Typography variant='caption'>゛゜</Typography>
 								<Typography variant='caption' whiteSpace='nowrap'>
@@ -199,13 +234,13 @@ const Keyboard = () => {
 					}
 					if (char === 'B') {
 						return (
-							<KeyButton key={ind} onClick={handleBackspaceKeyClick} testId='delete-key'>
+							<KeyButton key={ind} onClick={handleBackspaceKeyClick} testId='delete-key' >
 								<BackspaceOutlinedIcon fontSize='small' />
 							</KeyButton>
 						)
 					}
 					return (
-						<KeyButton key={ind} onClick={handleKeyClick} isHidden={isHidden}>
+						<KeyButton key={ind} onClick={handleKeyClick} isHidden={isHidden} >
 							{char}
 						</KeyButton>
 					)

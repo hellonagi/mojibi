@@ -3,11 +3,12 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import Header from './index'
 import { HeaderContext } from '../../App'
 
+const setOpenStat = jest.fn()
 const setOpenHTP = jest.fn()
 
 const setup = () => {
 	return render(
-		<HeaderContext.Provider value={{ setOpenHTP }}>
+		<HeaderContext.Provider value={{ setOpenHTP, setOpenStat }}>
 			<Header />
 		</HeaderContext.Provider>
 	)
