@@ -81,6 +81,11 @@ const Keyboard = () => {
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
+		if (enteredWords.length >= 8) {
+			console.log('cant input anymore')
+			return
+		}
+
 		if (currentWord.length !== 4) {
 			console.log(currentWord + ' is not 4-kana word')
 			setErrorMsg('ひらがな4文字を入力してください')
@@ -179,13 +184,15 @@ const Keyboard = () => {
 
 	return (
 		<Box textAlign='center' mb={1.5}>
-			<form onSubmit={handleSubmit} id='keyForm' data-testid='key-form'>
-				<Box display='flex' justifyContent='center'>
+			{enteredWords.length < 8 && (
+				<form onSubmit={handleSubmit} id='keyForm' data-testid='key-form'>
 					<TextField
 						autoComplete='off'
 						onChange={handleChange}
 						value={currentWord}
+						size='small'
 						inputProps={{
+							margin: 0,
 							maxLength: 4,
 							'data-testid': 'key-input',
 						}}
@@ -199,8 +206,8 @@ const Keyboard = () => {
 					>
 						ENTER
 					</Button>
-				</Box>
-			</form>
+				</form>
+			)}
 
 			<Box
 				mt={1}
@@ -223,7 +230,6 @@ const Keyboard = () => {
 								onClick={handleConversionKeyClick}
 								isMultipleLine={true}
 								testId='conv-key'
-								
 							>
 								<Typography variant='caption'>゛゜</Typography>
 								<Typography variant='caption' whiteSpace='nowrap'>
@@ -234,13 +240,13 @@ const Keyboard = () => {
 					}
 					if (char === 'B') {
 						return (
-							<KeyButton key={ind} onClick={handleBackspaceKeyClick} testId='delete-key' >
+							<KeyButton key={ind} onClick={handleBackspaceKeyClick} testId='delete-key'>
 								<BackspaceOutlinedIcon fontSize='small' />
 							</KeyButton>
 						)
 					}
 					return (
-						<KeyButton key={ind} onClick={handleKeyClick} isHidden={isHidden} >
+						<KeyButton key={ind} onClick={handleKeyClick} isHidden={isHidden}>
 							{char}
 						</KeyButton>
 					)

@@ -42,7 +42,7 @@ const theme = createTheme({
 					},
 					input: {
 						width: 120,
-						padding: '4px 16px 4px 16px',
+						height: '100%',
 					},
 				},
 			},
