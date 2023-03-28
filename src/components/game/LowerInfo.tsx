@@ -12,10 +12,11 @@ interface LowerInfoContext {
 
 const LowerInfo = () => {
 	const { currentWord, enteredWords } = useContext(GameContext) as LowerInfoContext
+	const filteredWord = currentWord.replace(/[^\u3040-\u309Fー]/g, '')
 
 	const tmpHistory = [...enteredWords]
 	if (tmpHistory.length < 8) {
-		tmpHistory.push(currentWord)
+		tmpHistory.push(filteredWord)
 	}
 	for (let i = 0; i < 8; i++) {
 		if (typeof tmpHistory[i] === 'undefined') {
