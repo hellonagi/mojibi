@@ -38,16 +38,16 @@ const HowToPlay = () => {
 			aria-describedby='parent-modal-description'
 		>
 			<Box sx={{ ...style, width: 400 }}>
-				<Typography my={1} variant='h2' component='h2' textAlign='center'>
+				<Typography my={1} variant='h2' component='h2'>
 					遊び方
 				</Typography>
 				<Typography my={1}>8つの単語でなるべく多くの列を完成させよう！</Typography>
 				<Typography my={1}>
-					単語はMojibiに登録された4文字の名詞でなければなりません。送信するには、Enterボタンを押してください。
+					単語はMojibiに登録された4文字の『名詞』でなければなりません。送信するには、Enterを押してください。
 				</Typography>
 				<Typography my={1}>各単語の入力後、条件によってマス目の色が変わります。</Typography>
 				<Divider />
-				<Typography my={1} variant='h2' component='h2' textAlign='center'>
+				<Typography my={1} variant='h2' component='h2'>
 					例
 				</Typography>
 				<Box
@@ -97,11 +97,11 @@ const HowToPlay = () => {
 					<Typography>らーめん</Typography>
 				</Box>
 				<Typography mt={1}>緑: 列が完成したマス</Typography>
-				<Typography>黄: 入力した単語が含む文字と一致したマス</Typography>
-				<Typography mb={1}>赤: 入力中の単語が含む文字と一致したマス</Typography>
+				<Typography>黄: 入力した文字を含むマス</Typography>
+				<Typography mb={1}>赤: 入力中の文字を含むマス</Typography>
 				<Divider />
 				<Typography my={1} sx={{ color: '#9e9e9e' }}>
-					© 2022 n2dev
+					© 2023 n2dev
 				</Typography>
 			</Box>
 		</Modal>
