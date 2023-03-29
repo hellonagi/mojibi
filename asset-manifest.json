@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/mojibi/static/css/main.a162c286.css",
-    "main.js": "/mojibi/static/js/main.529f277e.js",
+    "main.js": "/mojibi/static/js/main.bc247057.js",
     "static/js/787.7e8f4144.chunk.js": "/mojibi/static/js/787.7e8f4144.chunk.js",
     "index.html": "/mojibi/index.html",
     "main.a162c286.css.map": "/mojibi/static/css/main.a162c286.css.map",
-    "main.529f277e.js.map": "/mojibi/static/js/main.529f277e.js.map",
+    "main.bc247057.js.map": "/mojibi/static/js/main.bc247057.js.map",
     "787.7e8f4144.chunk.js.map": "/mojibi/static/js/787.7e8f4144.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a162c286.css",
-    "static/js/main.529f277e.js"
+    "static/js/main.bc247057.js"
   ]
 }
