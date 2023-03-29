@@ -14,11 +14,13 @@ import { checkForMatchedChars } from '../../utils/checkForMatchedChars'
 import { checkForBingoLines } from '../../utils/checkForBingoLines'
 import { bingoCharacters } from './BingoGrid'
 import { calcLinesAndScore } from '../../utils/calcLinesAndScore'
+import { getAnimationIndices } from '../../utils/getAnimationIndices'
 
 interface KeyProps extends ButtonProps {
 	isHidden?: boolean
 	isMultipleLine?: boolean
 	testId?: string | null
+	isDisabled: boolean
 }
 
 const KeyButton: React.FC<KeyProps> = ({
@@ -27,10 +29,12 @@ const KeyButton: React.FC<KeyProps> = ({
 	isHidden = false,
 	isMultipleLine = false,
 	testId = null,
+	isDisabled,
 }: KeyProps) => {
 	return (
 		<Button
 			color='neutral'
+			disabled={isDisabled}
 			variant='contained'
 			sx={{
 				minWidth: 24,
@@ -59,6 +63,9 @@ interface KeyboardProps {
 	setErrorMsg: React.Dispatch<React.SetStateAction<string>>
 	setOpenStat: React.Dispatch<React.SetStateAction<boolean>>
 	setLines: React.Dispatch<React.SetStateAction<number>>
+	isAnimating: boolean
+	setIsAnimating: React.Dispatch<React.SetStateAction<boolean>>
+	setAnimIndices: React.Dispatch<React.SetStateAction<number[]>>
 }
 
 const Keyboard = () => {
@@ -72,6 +79,9 @@ const Keyboard = () => {
 		setOpenErrorMsg,
 		setErrorMsg,
 		setOpenStat,
+		isAnimating,
+		setIsAnimating,
+		setAnimIndices,
 	} = useContext(GameContext) as KeyboardProps
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,15 +111,18 @@ const Keyboard = () => {
 		if (isValid) {
 			const tmpSavedGrid = savedGrid.concat()
 
-			// Changes elements of savedGird to 1 if their corresponding letters match the letters in the last word.
+			// Changes elements of savedGird to 1(yellow) if their corresponding letters match the entered letters.
 			const gridWithMatchedLetters = checkForMatchedChars(
 				currentWord,
 				tmpSavedGrid,
 				bingoCharacters
 			)
 
-			// Changes elements of savedGrid to 2 if their corresponding letters complete a row, column, or diagonal.
+			// Changes elements of savedGrid to 2(green) if their corresponding letters complete a row, column, or diagonal.
 			const gridWithBingoLines = checkForBingoLines(gridWithMatchedLetters)
+
+			setAnimIndices(getAnimationIndices(savedGrid, gridWithBingoLines))
+			setIsAnimating(true)
 
 			const evaluations = gridWithBingoLines
 			setSavedGrid(gridWithBingoLines)
@@ -155,7 +168,7 @@ const Keyboard = () => {
 				localStorage.setItem('mojibi_stats', JSON.stringify(mojibiStats))
 
 				// Open stats modal
-				setOpenStat(true)
+				setTimeout(() => setOpenStat(true), 500)
 			}
 		} else {
 			setErrorMsg(`${currentWord} は辞書にありません`)
@@ -191,6 +204,7 @@ const Keyboard = () => {
 						onChange={handleChange}
 						value={currentWord}
 						size='small'
+						disabled={isAnimating}
 						inputProps={{
 							margin: 0,
 							maxLength: 4,
@@ -202,6 +216,7 @@ const Keyboard = () => {
 						type='submit'
 						variant='contained'
 						size='small'
+						disabled={isAnimating}
 						sx={{ marginLeft: 1 }}
 					>
 						ENTER
@@ -229,6 +244,7 @@ const Keyboard = () => {
 								key={ind}
 								onClick={handleConversionKeyClick}
 								isMultipleLine={true}
+								isDisabled={isAnimating}
 								testId='conv-key'
 							>
 								<Typography variant='caption'>゛゜</Typography>
@@ -240,13 +256,23 @@ const Keyboard = () => {
 					}
 					if (char === 'B') {
 						return (
-							<KeyButton key={ind} onClick={handleBackspaceKeyClick} testId='delete-key'>
+							<KeyButton
+								key={ind}
+								onClick={handleBackspaceKeyClick}
+								isDisabled={isAnimating}
+								testId='delete-key'
+							>
 								<BackspaceOutlinedIcon fontSize='small' />
 							</KeyButton>
 						)
 					}
 					return (
-						<KeyButton key={ind} onClick={handleKeyClick} isHidden={isHidden}>
+						<KeyButton
+							key={ind}
+							onClick={handleKeyClick}
+							isHidden={isHidden}
+							isDisabled={isAnimating}
+						>
 							{char}
 						</KeyButton>
 					)

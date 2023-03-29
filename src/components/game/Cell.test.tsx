@@ -6,10 +6,10 @@ import { GameContext } from '../../App'
 const currentWord = 'らーめん'
 const savedGrid = [0, 1, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-const setup = (char: string, index: number) => {
+const setup = (char: string, index: number, trigger = false, onEventComplete = () => undefined) => {
 	return render(
 		<GameContext.Provider value={{ currentWord, savedGrid }}>
-			<Cell char={char} index={index} />
+			<Cell char={char} index={index} triggerEvent={trigger} onEventComplete={onEventComplete} />
 		</GameContext.Provider>
 	)
 }

@@ -48,6 +48,8 @@ function App() {
 	const [openErrorMsg, setOpenErrorMsg] = useState<boolean>(false)
 	const [errorMsg, setErrorMsg] = useState<string>('')
 	const [openCtC, setOpenCtC] = useState<boolean>(false)
+	const [isAnimating, setIsAnimating] = useState<boolean>(false)
+	const [animIndices, setAnimIndices] = useState<number[]>([])
 
 	useEffect(() => {
 		if (hasVisited !== 'true') {
@@ -103,6 +105,10 @@ function App() {
 					openCtC,
 					setOpenCtC,
 					setOpenStat,
+					isAnimating,
+					setIsAnimating,
+					animIndices,
+					setAnimIndices
 				}}
 			>
 				<Game />

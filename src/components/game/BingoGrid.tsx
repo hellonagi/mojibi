@@ -1,5 +1,7 @@
+import React, { useContext, useState, useEffect, useRef } from 'react'
 import Box from '@mui/material/Box'
 
+import { GameContext } from '../../App'
 import { getBingoChars } from '../../utils/getBingoChars'
 import { convertUnixToDate } from '../../utils/convertUnixToDate'
 import Cell from './Cell'
@@ -10,7 +12,40 @@ export const bingoCharacters: string[] = getBingoChars(
 	parseInt(convertUnixToDate(new Date().getTime()), 10)
 )
 
+interface BingoContext {
+	isAnimating: boolean
+	setIsAnimating: React.Dispatch<React.SetStateAction<boolean>>
+	animIndices: number[]
+	setAnimIndices: React.Dispatch<React.SetStateAction<number[]>>
+}
+
 const Bingo = () => {
+	const { isAnimating, setIsAnimating, animIndices, setAnimIndices } = useContext(
+		GameContext
+	) as BingoContext
+	const [triggerEvent, setTriggerEvent] = useState(false)
+	const isFirstRender = useRef(false)
+
+	useEffect(() => {
+		if (isFirstRender.current) {
+			isFirstRender.current = false
+			return
+		}
+		if (isAnimating) {
+			setTriggerEvent(true)
+			if (animIndices.length === 0) {
+				setIsAnimating(false)
+				setTriggerEvent(false)
+			}
+		}
+	}, [isAnimating])
+
+	const onEventComplete = () => {
+		setAnimIndices([])
+		setTriggerEvent(false)
+		setIsAnimating(false)
+	}
+
 	return (
 		<Box mt={1} flexGrow={1} display='flex' justifyContent='center' alignItems='center'>
 			<Box>
@@ -23,7 +58,15 @@ const Bingo = () => {
 					data-testid='cells'
 				>
 					{bingoCharacters.map((char, index) => {
-						return <Cell char={char} index={index} key={char} />
+						return (
+							<Cell
+								char={char}
+								index={index}
+								key={char}
+								triggerEvent={triggerEvent && animIndices.includes(index)}
+								onEventComplete={onEventComplete}
+							/>
+						)
 					})}
 				</Box>
 				<LowerInfo />
