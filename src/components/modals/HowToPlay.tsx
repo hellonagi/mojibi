@@ -1,23 +1,13 @@
 import { useContext } from 'react'
 import Box from '@mui/material/Box'
-import Modal from '@mui/material/Modal'
+import Dialog from '@mui/material/Dialog'
+import DialogContent from '@mui/material/DialogContent'
 import Typography from '@mui/material/Typography'
 import Divider from '@mui/material/Divider'
+import IconButton from '@mui/material/IconButton'
+import CloseIcon from '@mui/icons-material/Close'
 
 import { HeaderContext } from '../../App'
-
-const style = {
-	position: 'absolute',
-	top: '50%',
-	left: '50%',
-	transform: 'translate(-50%, -50%)',
-	width: 400,
-	backgroundColor: 'background.paper',
-	borderRadius: 2,
-	border: '1px solid #222',
-	boxShadow: 24,
-	p: 4,
-}
 
 interface HTPContext {
 	openHTP: boolean
@@ -28,24 +18,51 @@ const HowToPlay = () => {
 	const { openHTP, setOpenHTP } = useContext(HeaderContext) as HTPContext
 	const bingoExample = 'ろつとらっもどむさなまゆほぐぬけょすれにぶひゅーぽ'.split('')
 	const bingoState = '1003022222001010000011030'.split('')
+	const emphasisColor = '#EC7E7E'
 
 	const handleClose = () => setOpenHTP(false)
+
 	return (
-		<Modal
+		<Dialog
 			open={openHTP}
 			onClose={handleClose}
-			aria-labelledby='parent-modal-title'
-			aria-describedby='parent-modal-description'
+			PaperProps={{
+				style: { borderRadius: 12 },
+			}}
 		>
-			<Box sx={{ ...style, width: 400 }}>
-				<Typography my={1} variant='h2' component='h2'>
+			<IconButton
+				aria-label='close'
+				onClick={handleClose}
+				sx={{
+					position: 'absolute',
+					right: 8,
+					top: 8,
+					color: (theme) => theme.palette.grey[500],
+				}}
+			>
+				<CloseIcon />
+			</IconButton>
+			<DialogContent
+				sx={{
+					width: 400,
+					boxShadow: 24,
+					backgroundColor: 'background.paper',
+					p: 4,
+				}}
+			>
+				<Typography variant='h2' component='h2'>
 					遊び方
 				</Typography>
-				<Typography my={1}>8つの単語でなるべく多くの列を完成させよう！</Typography>
-				<Typography my={1}>
-					単語はMojibiに登録された4文字の『名詞』でなければなりません。送信するには、Enterを押してください。
+				<Typography mb={1} fontSize={14} fontWeight={600}>
+					8つの単語で多くの列を完成させよう！
 				</Typography>
-				<Typography my={1}>各単語の入力後、条件によってマス目の色が変わります。</Typography>
+				<Typography lineHeight={1.5}>
+					<span style={{ color: emphasisColor }}>4文字</span>の単語を
+					<span style={{ color: emphasisColor }}>ひらがな</span>で入力してください。
+				</Typography>
+				<Typography lineHeight={1.5} mb={1}>
+					各単語の入力後、条件によってマス目の色が変わります。
+				</Typography>
 				<Divider />
 				<Typography my={1} variant='h2' component='h2'>
 					例
@@ -96,15 +113,15 @@ const HowToPlay = () => {
 				>
 					<Typography>らーめん</Typography>
 				</Box>
-				<Typography mt={1}>緑: 列が完成したマス</Typography>
-				<Typography>黄: 入力した文字を含むマス</Typography>
-				<Typography mb={1}>赤: 入力中の文字を含むマス</Typography>
+				<Typography mt={1}>🟩: 列が完成したマス</Typography>
+				<Typography>🟨: 入力した文字を含むマス</Typography>
+				<Typography mb={1}>🟥: 入力中の文字を含むマス</Typography>
 				<Divider />
 				<Typography my={1} sx={{ color: '#9e9e9e' }}>
 					© 2023 n2dev
 				</Typography>
-			</Box>
-		</Modal>
+			</DialogContent>
+		</Dialog>
 	)
 }
 
