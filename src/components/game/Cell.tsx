@@ -86,6 +86,7 @@ const Cell = ({ char, index, triggerEvent, onEventComplete }: CellProps) => {
 					borderColor: cellColor,
 					backgroundColor: cellColor,
 					fontSize: '1.75rem',
+					fontWeight: 600,
 					aspectRatio: '1',
 					'&:before': {
 						content: `"${char}"`,
