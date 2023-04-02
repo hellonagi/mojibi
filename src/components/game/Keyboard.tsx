@@ -15,6 +15,8 @@ import { checkForBingoLines } from '../../utils/checkForBingoLines'
 import { bingoCharacters } from './BingoGrid'
 import { calcLinesAndScore } from '../../utils/calcLinesAndScore'
 import { getAnimationIndices } from '../../utils/getAnimationIndices'
+import { getAverageAndRank } from '../../utils/getAverageAndRank'
+import { calcDateDiff } from '../../utils/calcDateDiff'
 
 interface KeyProps extends ButtonProps {
 	isHidden?: boolean
@@ -103,12 +105,7 @@ const Keyboard = () => {
 			return
 		}
 
-		let isValid = false
 		if (VALID_WORDS.includes(currentWord)) {
-			isValid = true
-		}
-
-		if (isValid) {
 			const tmpSavedGrid = savedGrid.concat()
 
 			// Changes elements of savedGird to 1(yellow) if their corresponding letters match the entered letters.
@@ -144,26 +141,47 @@ const Keyboard = () => {
 
 			// When the game finishes
 			if (wordHistory.length === 8) {
+				const now = new Date()
 				const gameStatus = completedLines > 0 ? 'WIN' : 'FAIL'
 				mojibiState['gameStatus'] = gameStatus
+				if (mojibiState['lastCompleted'] == null) {
+					mojibiStats['gamesPlayedStreak'] = 1
+				} else if (calcDateDiff(new Date(mojibiState['lastCompleted']), now) == 1) {
+					mojibiStats['gamesPlayedStreak'] += 1
+				} else {
+					mojibiStats['gamesPlayedStreak'] = 0
+				}
+
+				mojibiState['lastCompleted'] = now.getTime()
 				mojibiStats['gamesPlayed'] += 1
 
+				// Win if the number of completed lines is 1 or more.
 				if (gameStatus === 'WIN') {
 					mojibiStats['gamesWon'] += 1
 					mojibiStats['currentWinStreak'] += 1
 					if (mojibiStats['currentWinStreak'] > mojibiStats['maxWinStreak']) {
 						mojibiStats['maxWinStreak'] = mojibiStats['currentWinStreak']
 					}
-					mojibiStats['lines'][completedLines] += 1
 				} else {
-					mojibiStats['lines'][0] += 1
 					mojibiStats['currentWinStreak'] = 0
 				}
 				mojibiStats['winPercentage'] = (mojibiStats['gamesWon'] / mojibiStats['gamesPlayed']) * 100
+				mojibiStats['lines'][completedLines] += 1
+
+				const linesArray = Object.values(mojibiStats['lines'])
+				const [averageLines, rank] = getAverageAndRank(linesArray)
+				mojibiStats['averageLines'] = averageLines
+				mojibiStats['rank'] = rank
 
 				localStorage.setItem(
 					'mojibi_state',
-					JSON.stringify({ ...mojibiState, wordHistory, evaluations, completedLines, gameStatus })
+					JSON.stringify({
+						...mojibiState,
+						wordHistory,
+						evaluations,
+						completedLines,
+						gameStatus,
+					})
 				)
 				localStorage.setItem('mojibi_stats', JSON.stringify(mojibiStats))
 

@@ -27,7 +27,7 @@ describe('renders HowToPlay component', () => {
 
 	describe('when outside of how-to-play modal clicked', () => {
 		it('should close how-to-play modal', () => {
-			const how2Modal = screen.getByRole('presentation')
+			const how2Modal = screen.getByTestId('how-to-play-dialog')
 			const bd = how2Modal.getElementsByClassName('MuiBackdrop-root')
 			fireEvent.click(bd[0])
 			expect(setOpenHTP).toHaveBeenCalledTimes(1)
