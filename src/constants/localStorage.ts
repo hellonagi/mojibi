@@ -1,6 +1,13 @@
 import { DEFAULT_GRID } from './defaultGrid'
-
-export const DEFAULT_MOJIBI_STATE = {
+interface MojibiStateType {
+	wordHistory: string[]
+	evaluations: number[]
+	gameStatus: string
+	completedLines: number
+	lastCompleted: number | null
+	lastPlayed: number
+}
+export const DEFAULT_MOJIBI_STATE: MojibiStateType = {
 	wordHistory: [],
 	evaluations: DEFAULT_GRID,
 	gameStatus: 'IN_PROGRESS',
@@ -10,20 +17,26 @@ export const DEFAULT_MOJIBI_STATE = {
 }
 
 interface MojibiStatsType {
-	[key: string]: number | Record<string, number>
+	[key: string]: number | string | Record<string, number>
 	gamesPlayed: number
+	gamesPlayedStreak: number
 	gamesWon: number
 	winPercentage: number
 	maxWinStreak: number
 	currentWinStreak: number
+	averageLines: number
+	rank: string
 	lines: Record<string, number>
 }
 export const DEFAULT_MOJIBI_STATS: MojibiStatsType = {
 	gamesPlayed: 0,
+	gamesPlayedStreak: 0,
 	gamesWon: 0,
 	winPercentage: 0,
 	maxWinStreak: 0,
 	currentWinStreak: 0,
+	averageLines: 0,
+	rank: '-',
 	lines: {
 		0: 0,
 		1: 0,

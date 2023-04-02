@@ -27,8 +27,9 @@ const HowToPlay = () => {
 			open={openHTP}
 			onClose={handleClose}
 			PaperProps={{
-				style: { borderRadius: 12 },
+				style: { borderRadius: 12, margin: 8, width: 400 },
 			}}
+			data-testid='how-to-play-dialog'
 		>
 			<IconButton
 				aria-label='close'
@@ -39,12 +40,13 @@ const HowToPlay = () => {
 					top: 8,
 					color: (theme) => theme.palette.grey[500],
 				}}
+				data-testid='how-to-play-dialog-close-button'
 			>
 				<CloseIcon />
 			</IconButton>
 			<DialogContent
 				sx={{
-					width: 400,
+					maxWidth: 400,
 					boxShadow: 24,
 					backgroundColor: 'background.paper',
 					p: 4,
@@ -64,7 +66,7 @@ const HowToPlay = () => {
 					各単語の入力後、条件によってマス目の色が変わります。
 				</Typography>
 				<Divider />
-				<Typography my={1} variant='h2' component='h2'>
+				<Typography my={1} variant='h3' component='h2'>
 					例
 				</Typography>
 				<Box

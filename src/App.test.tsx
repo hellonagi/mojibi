@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom'
-import { render, screen, fireEvent, within } from '@testing-library/react'
+import { render, screen, fireEvent, within, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import App from './App'
 
@@ -17,13 +17,15 @@ describe('App component', () => {
 	})
 
 	describe('Header', () => {
-		it('should display how-to-play modal and close it', () => {
+		it('should display how-to-play dialog and close it', async () => {
 			const h2Element = screen.getByRole('heading', { level: 2, name: /遊び方/i })
 			expect(h2Element).toBeInTheDocument()
 
-			const how2Modal = screen.getByRole('presentation')
-			const bd = how2Modal.getElementsByClassName('MuiBackdrop-root')
-			userEvent.click(bd[0])
+			const how2DialogCloseButton = screen.getByTestId('how-to-play-dialog-close-button')
+			userEvent.click(how2DialogCloseButton)
+			await waitFor(() => {
+				expect(screen.queryByTestId('how-to-play-dialog')).not.toBeInTheDocument()
+			})
 
 			const titleElement = screen.getByRole('heading', { level: 1, name: /Mojibi/i })
 			expect(titleElement).toBeInTheDocument()

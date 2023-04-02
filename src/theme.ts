@@ -16,6 +16,10 @@ const theme = createTheme({
 			fontSize: 20,
 			fontWeight: 600,
 		},
+		h3: {
+			fontSize: 18,
+			fontWeight: 600,
+		},
 		caption: {
 			fontSize: 10,
 		},

@@ -5,39 +5,26 @@ import { ThemeProvider } from '@mui/material/styles'
 import theme from './theme'
 import Header from './components/header'
 import Game from './components/game'
-import HowToPlay from './components/modals/HowToPlay'
-import Stat from './components/modals/Stat'
+import HowToPlay from './components/dialogs/HowToPlay'
+import Stat from './components/dialogs/Stat'
 import ErrorMsg from './components/snackbars/ErrorMsg'
 import CopiedToClipboard from './components/snackbars/CopiedToClipboard'
 import { DEFAULT_GRID } from './constants/defaultGrid'
 import { DEFAULT_MOJIBI_STATE, DEFAULT_MOJIBI_STATS } from './constants/localStorage'
 
-import { convertUnixToDate } from './utils/convertUnixToDate'
+import { calcDateDiff } from './utils/calcDateDiff'
+import { getLocalStorage } from './utils/getLocalStorage'
 
 export const GameContext = createContext({})
 export const HeaderContext = createContext({})
 
-const unixNow = new Date().getTime()
+const now = new Date()
 const hasVisited = localStorage.getItem('has_visited')
 
-// Initiate Local Storage
-const stringifiedMojibiState = localStorage.getItem('mojibi_state')
-let mojibiState = DEFAULT_MOJIBI_STATE
-if (stringifiedMojibiState) {
-	mojibiState = JSON.parse(stringifiedMojibiState)
-} else {
-	localStorage.setItem('mojibi_state', JSON.stringify(DEFAULT_MOJIBI_STATE))
-}
-
-const stringifiedMojibiStats = localStorage.getItem('mojibi_stats')
-let mojibiStats = DEFAULT_MOJIBI_STATS
-if (stringifiedMojibiStats) {
-	mojibiStats = JSON.parse(stringifiedMojibiStats)
-} else {
-	localStorage.setItem('mojibi_stats', JSON.stringify(DEFAULT_MOJIBI_STATS))
-}
-
-export { mojibiState, mojibiStats }
+// eslint-disable-next-line prefer-const
+export let mojibiState = getLocalStorage('mojibi_state', DEFAULT_MOJIBI_STATE)
+// eslint-disable-next-line prefer-const
+export let mojibiStats = getLocalStorage('mojibi_stats', DEFAULT_MOJIBI_STATS)
 
 function App() {
 	const [currentWord, setCurrentWord] = useState<string>('')
@@ -57,7 +44,9 @@ function App() {
 			localStorage.setItem('has_visited', 'true')
 		}
 
-		if (convertUnixToDate(mojibiState['lastPlayed']) !== convertUnixToDate(unixNow)) {
+		const daysSinceLastPlayed = calcDateDiff(new Date(mojibiState['lastPlayed']), now)
+
+		if (daysSinceLastPlayed >= 1) {
 			localStorage.setItem(
 				'mojibi_state',
 				JSON.stringify({
@@ -65,7 +54,7 @@ function App() {
 					evaluations: DEFAULT_GRID,
 					gameStatus: 'IN_PROGRESS',
 					wordHistory: [],
-					lastPlayed: unixNow,
+					lastPlayed: now.getTime(),
 				})
 			)
 		} else {
@@ -108,7 +97,7 @@ function App() {
 					isAnimating,
 					setIsAnimating,
 					animIndices,
-					setAnimIndices
+					setAnimIndices,
 				}}
 			>
 				<Game />
