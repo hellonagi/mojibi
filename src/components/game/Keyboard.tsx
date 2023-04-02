@@ -5,6 +5,7 @@ import Button, { ButtonProps } from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
 import BackspaceOutlinedIcon from '@mui/icons-material/BackspaceOutlined'
+import BackspaceRoundedIcon from '@mui/icons-material/BackspaceRounded';
 
 import { GameContext, mojibiState, mojibiStats } from '../../App'
 import { VALID_WORDS } from '../../constants/validWords'
@@ -45,6 +46,8 @@ const KeyButton: React.FC<KeyProps> = ({
 				height: 40,
 				visibility: isHidden ? 'hidden' : 'visible',
 				flexFlow: isMultipleLine ? 'column' : 'row',
+				fontWeight: 600,
+				fontSize: 16,
 			}}
 			onClick={onClick}
 			data-testid={testId}
@@ -214,7 +217,7 @@ const Keyboard = () => {
 	}
 
 	return (
-		<Box textAlign='center' mb={1.5}>
+		<Box textAlign='center' mb={2}>
 			{enteredWords.length < 8 && (
 				<form onSubmit={handleSubmit} id='keyForm' data-testid='key-form'>
 					<TextField
@@ -280,7 +283,7 @@ const Keyboard = () => {
 								isDisabled={isAnimating}
 								testId='delete-key'
 							>
-								<BackspaceOutlinedIcon fontSize='small' />
+								<BackspaceRoundedIcon fontSize='small' />
 							</KeyButton>
 						)
 					}

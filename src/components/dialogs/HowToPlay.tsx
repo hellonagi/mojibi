@@ -71,8 +71,8 @@ const HowToPlay = () => {
 				</Typography>
 				<Box
 					display='grid'
-					gridTemplateColumns='repeat(5, 32px)'
-					gridTemplateRows='repeat(5, 32px)'
+					gridTemplateColumns='repeat(5, 42px)'
+					gridTemplateRows='repeat(5, 42px)'
 					gap={0.75}
 				>
 					{bingoExample.map((c, i) => {
@@ -93,8 +93,9 @@ const HowToPlay = () => {
 								alignItems='center'
 								sx={{
 									backgroundColor: cellColor,
-									width: 32,
+									width: 42,
 									aspectRatio: '1',
+									fontSize: 16,
 									'&:before': {
 										content: `"${c}"`,
 										display: 'inline-block',
@@ -108,7 +109,7 @@ const HowToPlay = () => {
 				<Box
 					display='inline-block'
 					width={100}
-					p={0.5}
+					p={0.75}
 					mt={1}
 					border='1px solid #9e9e9e'
 					borderRadius={1}
