@@ -1,16 +1,18 @@
 import '@testing-library/jest-dom'
 import { render, screen, fireEvent } from '@testing-library/react'
 import Header from './index'
-import { HeaderContext } from '../../App'
+import GlobalProvider from '../../providers/GlobalProvider'
 
-const setOpenStat = jest.fn()
-const setOpenHTP = jest.fn()
+const mockSetters = {
+	setOpenStat: jest.fn(),
+	setOpenHTP: jest.fn(),
+}
 
 const setup = () => {
 	return render(
-		<HeaderContext.Provider value={{ setOpenHTP, setOpenStat }}>
+		<GlobalProvider mockSetters={mockSetters}>
 			<Header />
-		</HeaderContext.Provider>
+		</GlobalProvider>
 	)
 }
 
@@ -28,7 +30,7 @@ describe('renders Header component', () => {
 		it('should call how-to-play modal', () => {
 			const helpIcon = screen.getByRole('button', { name: /open how-to-play/i })
 			fireEvent.click(helpIcon)
-			expect(setOpenHTP).toHaveBeenCalledTimes(1)
+			expect(mockSetters.setOpenHTP).toHaveBeenCalledTimes(1)
 		})
 	})
 })

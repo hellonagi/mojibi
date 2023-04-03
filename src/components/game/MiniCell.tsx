@@ -2,7 +2,7 @@ import { useContext } from 'react'
 
 import Box from '@mui/material/Box'
 
-import { GameContext } from '../../App'
+import { GameContext } from '../../providers/GameProvider'
 import { bingoCharacters } from './BingoGrid'
 
 interface MiniCellProps {
@@ -10,12 +10,8 @@ interface MiniCellProps {
 	state: string
 }
 
-interface MiniCellContext {
-	savedGrid: number[]
-}
-
 const MiniCell = ({ char, state }: MiniCellProps) => {
-	const { savedGrid } = useContext(GameContext) as MiniCellContext
+	const { savedGrid } = useContext(GameContext)
 	let cellColor = 'unset'
 	let borderColor = '#3A3A3C'
 

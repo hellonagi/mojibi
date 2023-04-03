@@ -2,8 +2,9 @@ import { useContext, useEffect, useState } from 'react'
 
 import Box from '@mui/material/Box'
 import { motion, useAnimation } from 'framer-motion'
-import { GameContext } from '../../App'
+import { GameContext } from '../../providers/GameProvider'
 import { doesWordContainChar } from '../../utils/doesWordContainChar'
+import { GlobalContext } from '../../providers/GlobalProvider'
 
 interface CellProps {
 	char: string
@@ -12,17 +13,9 @@ interface CellProps {
 	onEventComplete: () => void
 }
 
-interface CellContext {
-	currentWord: string
-	savedGrid: number[]
-	openErrorMsg: boolean
-	isAnimating: boolean
-	setIsAnimating: React.Dispatch<React.SetStateAction<boolean>>
-	animIndices: number[]
-}
-
 const Cell = ({ char, index, triggerEvent, onEventComplete }: CellProps) => {
-	const { currentWord, savedGrid, openErrorMsg } = useContext(GameContext) as CellContext
+	const { currentWord, savedGrid } = useContext(GameContext)
+	const { openErrorMsg } = useContext(GlobalContext)
 	const [prevWordLength, setPrevWordLength] = useState<number>(0)
 	const animationControls = useAnimation()
 

@@ -3,6 +3,7 @@ import Box from '@mui/material/Box'
 
 import BingoGrid from './BingoGrid'
 import Keyboard from './Keyboard'
+import GameProvider from '../../providers/GameProvider'
 
 const Game = () => {
 	// Prevents the 100vh problem that the viewport is not constant in some mobile browsers
@@ -16,8 +17,10 @@ const Game = () => {
 	return (
 		<Container maxWidth='xs' sx={{ px: 1 }}>
 			<Box display='flex' flexDirection='column' className='container' data-testid='index-box'>
-				<BingoGrid />
-				<Keyboard />
+				<GameProvider>
+					<BingoGrid />
+					<Keyboard />
+				</GameProvider>
 			</Box>
 		</Container>
 	)

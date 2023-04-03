@@ -1,20 +1,26 @@
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import Cell from './Cell'
-import { GameContext } from '../../App'
+import GameProvider from '../../providers/GameProvider'
+import { mojibiState } from '../../App'
 
-const currentWord = 'らーめん'
-const savedGrid = [0, 1, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+const mockInitialValues = {
+	currentWord: 'らーめん',
+	savedGrid: [0, 1, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+}
 
 const setup = (char: string, index: number, trigger = false, onEventComplete = () => undefined) => {
+	mojibiState['evaluations'] = mockInitialValues.savedGrid
+
 	return render(
-		<GameContext.Provider value={{ currentWord, savedGrid }}>
+		<GameProvider initialValues={mockInitialValues}>
 			<Cell char={char} index={index} triggerEvent={trigger} onEventComplete={onEventComplete} />
-		</GameContext.Provider>
+		</GameProvider>
 	)
 }
 
 describe('renders Cell', () => {
+	console.log('=== Starting test for CELL ===')
 	it('should render gray cell when no matches found', () => {
 		setup('あ', 0)
 		const cell = screen.getByTestId('cell')

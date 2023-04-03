@@ -1,17 +1,22 @@
 import '@testing-library/jest-dom'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import ErrorMsg from './ErrorMsg'
-import { GameContext } from '../../App'
+import GlobalProvider from '../../providers/GlobalProvider'
 
-const openErrorMsg = true
-const setOpenErrorMsg = jest.fn()
-const errorMsg = 'スナックバーテスト'
+const mockInitialValues = {
+	openErrorMsg: true,
+	errorMsg: 'スナックバーテスト',
+}
+
+const mockSetters = {
+	setOpenErrorMsg: jest.fn(),
+}
 
 const setup = () => {
 	return render(
-		<GameContext.Provider value={{ openErrorMsg, setOpenErrorMsg, errorMsg }}>
+		<GlobalProvider initialValues={mockInitialValues} mockSetters={mockSetters}>
 			<ErrorMsg />
-		</GameContext.Provider>
+		</GlobalProvider>
 	)
 }
 

@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from 'react'
 import Box from '@mui/material/Box'
 
-import { GameContext } from '../../App'
+import { GameContext } from '../../providers/GameProvider'
 import { getBingoChars } from '../../utils/getBingoChars'
 import { convertUnixToDate } from '../../utils/convertUnixToDate'
 import Cell from './Cell'
@@ -12,17 +12,8 @@ export const bingoCharacters: string[] = getBingoChars(
 	parseInt(convertUnixToDate(new Date().getTime()), 10)
 )
 
-interface BingoContext {
-	isAnimating: boolean
-	setIsAnimating: React.Dispatch<React.SetStateAction<boolean>>
-	animIndices: number[]
-	setAnimIndices: React.Dispatch<React.SetStateAction<number[]>>
-}
-
 const Bingo = () => {
-	const { isAnimating, setIsAnimating, animIndices, setAnimIndices } = useContext(
-		GameContext
-	) as BingoContext
+	const { isAnimating, setIsAnimating, animIndices, setAnimIndices } = useContext(GameContext)
 	const [triggerEvent, setTriggerEvent] = useState(false)
 	const isFirstRender = useRef(false)
 

@@ -1,15 +1,9 @@
 import { useContext } from 'react'
 import Snackbar from '@mui/material/Snackbar'
-import { GameContext } from '../../App'
-
-interface ErrorMsgContext {
-	openErrorMsg: boolean
-	setOpenErrorMsg: React.Dispatch<React.SetStateAction<boolean>>
-	errorMsg: string
-}
+import { GlobalContext } from '../../providers/GlobalProvider'
 
 const ErrorMsg = () => {
-	const { openErrorMsg, setOpenErrorMsg, errorMsg } = useContext(GameContext) as ErrorMsgContext
+	const { openErrorMsg, setOpenErrorMsg, errorMsg } = useContext(GlobalContext)
 
 	const handleClose = () => {
 		setOpenErrorMsg(false)

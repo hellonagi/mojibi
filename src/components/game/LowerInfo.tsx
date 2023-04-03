@@ -2,16 +2,11 @@ import { useContext } from 'react'
 
 import Box from '@mui/material/Box'
 
-import { GameContext } from '../../App'
+import { GameContext } from '../../providers/GameProvider'
 import MiniCell from './MiniCell'
 
-interface LowerInfoContext {
-	currentWord: string
-	enteredWords: string[]
-}
-
 const LowerInfo = () => {
-	const { currentWord, enteredWords } = useContext(GameContext) as LowerInfoContext
+	const { currentWord, enteredWords } = useContext(GameContext)
 	const filteredWord = currentWord.replace(/[^\u3040-\u309Fー]/g, '')
 
 	const tmpHistory = [...enteredWords]

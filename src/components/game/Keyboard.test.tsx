@@ -4,30 +4,26 @@ import { ThemeProvider } from '@mui/material/styles'
 
 import theme from '../../theme'
 import Keyboard from './Keyboard'
-import { GameContext } from '../../App'
+import GameProvider from '../../providers/GameProvider'
 
-const currentWord = ''
-const setCurrentWord = jest.fn()
-const enteredWords = ['らーめん', 'やきそば']
-const setEnteredWords = jest.fn()
-const savedGird = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-const setSavedGird = jest.fn()
+const mockInitialValues = {
+	currentWord: '',
+	enteredWords: ['らーめん', 'やきそば'],
+	savedGird: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+}
+
+const mockSetters = {
+	setCurrentWord: jest.fn(),
+	setEnteredWords: jest.fn(),
+	setSavedGird: jest.fn(),
+}
 
 const setup = () => {
 	return render(
 		<ThemeProvider theme={theme}>
-			<GameContext.Provider
-				value={{
-					currentWord,
-					setCurrentWord,
-					enteredWords,
-					setEnteredWords,
-					savedGird,
-					setSavedGird,
-				}}
-			>
+			<GameProvider initialValues={mockInitialValues} mockSetters={mockSetters}>
 				<Keyboard />
-			</GameContext.Provider>
+			</GameProvider>
 		</ThemeProvider>
 	)
 }
@@ -46,7 +42,7 @@ describe('renders Keyboard', () => {
 		const textInput = screen.getByTestId('key-input')
 		expect(textInput).toBeInTheDocument()
 		fireEvent.change(textInput, { target: { value: 'そーめん' } })
-		expect(setCurrentWord).toHaveBeenCalledTimes(1)
+		expect(mockSetters.setCurrentWord).toHaveBeenCalledTimes(1)
 	})
 
 	it('should render keyboard', () => {
@@ -58,6 +54,6 @@ describe('renders Keyboard', () => {
 	it('should press keyboard', () => {
 		const key = screen.getByText('あ')
 		fireEvent.click(key)
-		expect(setCurrentWord).toHaveBeenCalledTimes(1)
+		expect(mockSetters.setCurrentWord).toHaveBeenCalledTimes(1)
 	})
 })

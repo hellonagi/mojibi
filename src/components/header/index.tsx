@@ -8,14 +8,10 @@ import IconButton from '@mui/material/IconButton'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
 import LeaderboardIcon from '@mui/icons-material/Leaderboard'
 
-import { HeaderContext } from '../../App'
-interface HTPContext {
-	setOpenHTP: React.Dispatch<React.SetStateAction<boolean>>
-	setOpenStat: React.Dispatch<React.SetStateAction<boolean>>
-}
+import { GlobalContext } from '../../providers/GlobalProvider'
 
 const Header = () => {
-	const { setOpenHTP, setOpenStat } = useContext(HeaderContext) as HTPContext
+	const { setOpenHTP, setOpenStat } = useContext(GlobalContext)
 
 	const handleHelpClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault()
