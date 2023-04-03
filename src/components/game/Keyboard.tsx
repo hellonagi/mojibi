@@ -209,7 +209,11 @@ const Keyboard = () => {
 						value={currentWord}
 						size='small'
 						disabled={isAnimating}
-						inputRef={(input) => input && input.focus()}
+						inputRef={(input) => {
+							if (window.innerWidth > 768) {
+								input && input.focus()
+							}
+						}}
 						inputProps={{
 							margin: 0,
 							maxLength: 4,
