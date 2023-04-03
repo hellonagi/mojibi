@@ -2,16 +2,21 @@ import React from 'react'
 import '@testing-library/jest-dom'
 import { render, screen, fireEvent } from '@testing-library/react'
 import HowToPlay from './HowToPlay'
-import { HeaderContext } from '../../App'
+import GlobalProvider from '../../providers/GlobalProvider'
 
-const openHTP = true
-const setOpenHTP = jest.fn()
+const mockInitialValues = {
+	openHTP: true,
+}
+
+const mockSetters = {
+	setOpenHTP: jest.fn(),
+}
 
 const setup = () => {
 	return render(
-		<HeaderContext.Provider value={{ openHTP, setOpenHTP }}>
+		<GlobalProvider initialValues={mockInitialValues} mockSetters={mockSetters}>
 			<HowToPlay />
-		</HeaderContext.Provider>
+		</GlobalProvider>
 	)
 }
 
@@ -30,7 +35,7 @@ describe('renders HowToPlay component', () => {
 			const how2Modal = screen.getByTestId('how-to-play-dialog')
 			const bd = how2Modal.getElementsByClassName('MuiBackdrop-root')
 			fireEvent.click(bd[0])
-			expect(setOpenHTP).toHaveBeenCalledTimes(1)
+			expect(mockSetters.setOpenHTP).toHaveBeenCalledTimes(1)
 		})
 	})
 })

@@ -11,16 +11,10 @@ import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined'
 import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close'
 
-import { mojibiState, mojibiStats, HeaderContext } from '../../App'
+import { mojibiState, mojibiStats } from '../../App'
+import { GlobalContext } from '../../providers/GlobalProvider'
 import StatBarChart from '../charts/StatBarChart'
 import { calcDateDiff } from '../../utils/calcDateDiff'
-
-interface StatContext {
-	openStat: boolean
-	lines: number
-	setOpenStat: React.Dispatch<React.SetStateAction<boolean>>
-	setOpenCtC: React.Dispatch<React.SetStateAction<boolean>>
-}
 
 const statList = [
 	{ name: 'gamesPlayed', label: 'プレイ回数' },
@@ -33,7 +27,7 @@ const serviceReleaseDate = new Date('2023/04/01')
 const emphasisColor = '#EC7E7E'
 
 const Stat = () => {
-	const { openStat, setOpenStat, setOpenCtC } = useContext(HeaderContext) as StatContext
+	const { openStat, setOpenStat, setOpenCtC } = useContext(GlobalContext)
 
 	const handleClose = () => setOpenStat(false)
 

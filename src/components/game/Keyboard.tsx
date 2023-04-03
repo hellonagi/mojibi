@@ -4,10 +4,11 @@ import Box from '@mui/material/Box'
 import Button, { ButtonProps } from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
-import BackspaceOutlinedIcon from '@mui/icons-material/BackspaceOutlined'
-import BackspaceRoundedIcon from '@mui/icons-material/BackspaceRounded';
+import BackspaceRoundedIcon from '@mui/icons-material/BackspaceRounded'
 
-import { GameContext, mojibiState, mojibiStats } from '../../App'
+import { mojibiState, mojibiStats } from '../../App'
+import { GlobalContext } from '../../providers/GlobalProvider'
+import { GameContext } from '../../providers/GameProvider'
 import { VALID_WORDS } from '../../constants/validWords'
 import { HIRAGANA_KEYS } from '../../constants/hiraganaKeys'
 import { HIRAGANA_CONVERSION_MAP } from '../../constants/hiraganaConversionMap'
@@ -57,22 +58,6 @@ const KeyButton: React.FC<KeyProps> = ({
 	)
 }
 
-interface KeyboardProps {
-	currentWord: string
-	setCurrentWord: React.Dispatch<React.SetStateAction<string>>
-	enteredWords: string[]
-	setEnteredWords: React.Dispatch<React.SetStateAction<string[]>>
-	savedGrid: number[]
-	setSavedGrid: React.Dispatch<React.SetStateAction<number[]>>
-	setOpenErrorMsg: React.Dispatch<React.SetStateAction<boolean>>
-	setErrorMsg: React.Dispatch<React.SetStateAction<string>>
-	setOpenStat: React.Dispatch<React.SetStateAction<boolean>>
-	setLines: React.Dispatch<React.SetStateAction<number>>
-	isAnimating: boolean
-	setIsAnimating: React.Dispatch<React.SetStateAction<boolean>>
-	setAnimIndices: React.Dispatch<React.SetStateAction<number[]>>
-}
-
 const Keyboard = () => {
 	const {
 		currentWord,
@@ -81,13 +66,11 @@ const Keyboard = () => {
 		setEnteredWords,
 		savedGrid,
 		setSavedGrid,
-		setOpenErrorMsg,
-		setErrorMsg,
-		setOpenStat,
 		isAnimating,
 		setIsAnimating,
 		setAnimIndices,
-	} = useContext(GameContext) as KeyboardProps
+	} = useContext(GameContext)
+	const { setOpenErrorMsg, setErrorMsg, setOpenStat } = useContext(GlobalContext)
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const word = e.target.value.slice(0, 4)

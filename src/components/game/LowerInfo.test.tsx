@@ -1,21 +1,23 @@
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import LowerInfo from './LowerInfo'
-import { GameContext } from '../../App'
+import GameProvider from '../../providers/GameProvider'
 
 jest.mock('./MiniCell', () => {
 	const FakeMiniCell = jest.fn(() => null)
 	return FakeMiniCell
 })
 
-const currentWord = 'そーめん'
-const enteredWords = ['らーめん', 'やきそば']
+const mockInitialValues = {
+	currentWord: 'そーめん',
+	enteredWords: ['らーめん', 'やきそば'],
+}
 
 const setup = () => {
 	return render(
-		<GameContext.Provider value={{ currentWord, enteredWords }}>
+		<GameProvider initialValues={mockInitialValues}>
 			<LowerInfo />
-		</GameContext.Provider>
+		</GameProvider>
 	)
 }
 

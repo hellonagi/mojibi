@@ -7,15 +7,10 @@ import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close'
 
-import { HeaderContext } from '../../App'
-
-interface HTPContext {
-	openHTP: boolean
-	setOpenHTP: React.Dispatch<React.SetStateAction<boolean>>
-}
+import { GlobalContext } from '../../providers/GlobalProvider'
 
 const HowToPlay = () => {
-	const { openHTP, setOpenHTP } = useContext(HeaderContext) as HTPContext
+	const { openHTP, setOpenHTP } = useContext(GlobalContext)
 	const bingoExample = 'ろつとらっもどむさなまゆほぐぬけょすれにぶひゅーぽ'.split('')
 	const bingoState = '1003022222001010000011030'.split('')
 	const emphasisColor = '#EC7E7E'

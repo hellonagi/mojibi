@@ -1,14 +1,9 @@
 import { useContext } from 'react'
 import Snackbar from '@mui/material/Snackbar'
-import { GameContext } from '../../App'
-
-interface CtCContext {
-	openCtC: boolean
-	setOpenCtC: React.Dispatch<React.SetStateAction<boolean>>
-}
+import { GlobalContext } from '../../providers/GlobalProvider'
 
 const CopiedToClipboard = () => {
-	const { openCtC, setOpenCtC } = useContext(GameContext) as CtCContext
+	const { openCtC, setOpenCtC } = useContext(GlobalContext)
 
 	const handleClose = () => {
 		setOpenCtC(false)
@@ -20,7 +15,7 @@ const CopiedToClipboard = () => {
 			open={openCtC}
 			autoHideDuration={4000}
 			onClose={handleClose}
-			message="結果をクリップボードにコピーしました"
+			message='結果をクリップボードにコピーしました'
 			data-testid='snackbar'
 		/>
 	)

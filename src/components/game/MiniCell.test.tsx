@@ -1,7 +1,8 @@
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import MiniCell from './MiniCell'
-import { GameContext } from '../../App'
+import GameProvider from '../../providers/GameProvider'
+import { mojibiState } from '../../App'
 
 jest.mock('./BingoGrid', () => ({
 	bingoCharacters: [
@@ -33,13 +34,17 @@ jest.mock('./BingoGrid', () => ({
 	],
 }))
 
-const savedGrid = [0, 1, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+const mockInitialValues = {
+	savedGrid: [0, 1, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+}
 
 const setup = (char: string, state: 'empty' | 'current' | 'filled') => {
+	mojibiState['evaluations'] = mockInitialValues.savedGrid
+
 	return render(
-		<GameContext.Provider value={{ savedGrid }}>
+		<GameProvider initialValues={mockInitialValues}>
 			<MiniCell char={char} state={state} />
-		</GameContext.Provider>
+		</GameProvider>
 	)
 }
 
