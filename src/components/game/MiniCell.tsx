@@ -47,7 +47,8 @@ const MiniCell = ({ char, state }: MiniCellProps) => {
 				},
 			}}
 			ml={0.25}
-			width='25%'
+			// width='25%'
+			flex='1 1 25%'
 			alignItems='center'
 			justifyContent='center'
 			display='flex'

@@ -22,12 +22,12 @@ const LowerInfo = () => {
 	return (
 		<Box
 			my={1}
-			sx={{
-				display: 'grid',
-				gridTemplateColumns: 'repeat(4, 1fr)',
-				gridTemplateRows: 'repeat(2, 1fr)',
-				gap: 0.5,
-			}}
+			display='grid'
+			gridTemplateColumns='repeat(4, 1fr)'
+			gridTemplateRows='repeat(2, 1fr)'
+			gap={0.5}
+			mx='auto'
+			alignItems='center'
 		>
 			{tmpHistory.map((word, index) => {
 				const rows = []
