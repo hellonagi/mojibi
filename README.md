@@ -1,4 +1,4 @@
-![mojibi](https://user-images.githubusercontent.com/38994662/228460425-49db7c30-9195-48c5-9aec-c99417ceb5c8.png)
+![mojibi](https://user-images.githubusercontent.com/38994662/229701039-b8d46535-7d7d-4294-a5b2-5ffed18e853c.jpg)
 
 ---
 # 文字のビンゴ Mojibi
