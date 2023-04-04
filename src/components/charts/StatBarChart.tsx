@@ -6,6 +6,17 @@ const StatBarChart = () => {
 		return { name, value }
 	})
 
+	const getFillColor = (i: number): string => {
+		if (mojibiState['gameStatus'] != 'IN_PROGRESS') {
+			if (i < 11) {
+				if (i === mojibiState['completedLines']) return '#538d4e'
+			} else if (i === 11) {
+				if (i === mojibiState['completedLines'] - 1) return '#538d4e'
+			}
+		}
+		return '#3a3a3c'
+	}
+
 	return (
 		<ResponsiveContainer width='100%' height={290}>
 			<BarChart data={data} layout='vertical'>
@@ -22,11 +33,7 @@ const StatBarChart = () => {
 					{data.map((entry, index) => (
 						<Cell
 							key={`cell-${index}`}
-							fill={
-								index == mojibiState['completedLines'] && mojibiState['gameStatus'] != 'IN_PROGRESS'
-									? '#538d4e'
-									: '#3a3a3c'
-							}
+							fill={getFillColor(index)}
 						/>
 					))}
 				</Bar>
