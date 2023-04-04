@@ -38,15 +38,16 @@ const Bingo = () => {
 	}
 
 	return (
-		<Box mt={1} flexGrow={1} display='flex' justifyContent='center' alignItems='center'>
-			<Box>
+		<Box height='calc(100% - 260px)' display='flex'>
+			<Box maxWidth={320} maxHeight='100%' sx={{ aspectRatio: '0.8' }} margin='auto'>
 				<Box
-					minWidth={320}
-					display='grid'
-					gridTemplateColumns='repeat(5, 1fr)'
-					gridTemplateRows='repeat(5, 1fr)'
+					display='flex'
+					flexWrap='wrap'
 					gap={0.75}
 					data-testid='cells'
+					mt={1}
+					mx='auto'
+					sx={{ aspectRatio: '1' }}
 				>
 					{bingoCharacters.map((char, index) => {
 						return (

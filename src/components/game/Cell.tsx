@@ -71,26 +71,27 @@ const Cell = ({ char, index, triggerEvent, onEventComplete }: CellProps) => {
 	}
 
 	return (
-		<motion.div animate={animationControls}>
+		<motion.div
+			animate={animationControls}
+			style={{
+				flex: '1 1 calc(20% - 5px)',
+				backgroundColor: cellColor,
+				justifyContent: 'center',
+				alignItems: 'center',
+				display: 'flex',
+			}}
+			data-testid='cell'
+		>
 			<Box
 				sx={{
-					border: 1,
 					color: 'white',
-					borderColor: cellColor,
-					backgroundColor: cellColor,
 					fontSize: '1.75rem',
 					fontWeight: 600,
-					aspectRatio: '1',
 					'&:before': {
 						content: `"${char}"`,
 						display: 'inline-block',
 					},
 				}}
-				width='100%'
-				alignItems='center'
-				justifyContent='center'
-				display='inline-flex'
-				data-testid='cell'
 			/>
 		</motion.div>
 	)

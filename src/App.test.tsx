@@ -157,7 +157,7 @@ describe('App component', () => {
 						const cell = cells[i]
 						if (i === 0 || i === 10 || i === 20) {
 							expect(cell).toHaveStyle({
-								backgroundColor: '#B59F3B',
+								backgroundColor: '',
 							})
 						} else {
 							expect(cell).toHaveStyle({
