@@ -154,8 +154,7 @@ const Keyboard = () => {
 				mojibiStats['winPercentage'] = (mojibiStats['gamesWon'] / mojibiStats['gamesPlayed']) * 100
 				mojibiStats['lines'][completedLines] += 1
 
-				const linesArray = Object.values(mojibiStats['lines'])
-				const [averageLines, rank] = getAverageAndRank(linesArray)
+				const [averageLines, rank] = getAverageAndRank(mojibiStats['lines'])
 				mojibiStats['averageLines'] = averageLines
 				mojibiStats['rank'] = rank
 
