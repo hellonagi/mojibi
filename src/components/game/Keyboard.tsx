@@ -123,19 +123,15 @@ const Keyboard = () => {
 				JSON.stringify({ ...mojibiState, wordHistory, evaluations, completedLines })
 			)
 
-			console.log(enteredWords)
-
 			// When the game finishes
 			if (wordHistory.length === 8) {
 				const now = new Date()
 				const gameStatus = completedLines > 0 ? 'WIN' : 'FAIL'
 				mojibiState['gameStatus'] = gameStatus
-				if (mojibiState['lastCompleted'] == null) {
-					mojibiStats['gamesPlayedStreak'] = 1
-				} else if (calcDateDiff(new Date(mojibiState['lastCompleted']), now) == 1) {
+				if (mojibiState['lastCompleted'] != null && calcDateDiff(new Date(mojibiState['lastCompleted']), now) == 1) {
 					mojibiStats['gamesPlayedStreak'] += 1
 				} else {
-					mojibiStats['gamesPlayedStreak'] = 0
+					mojibiStats['gamesPlayedStreak'] = 1
 				}
 
 				mojibiState['lastCompleted'] = now.getTime()
