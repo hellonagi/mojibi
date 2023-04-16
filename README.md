@@ -8,7 +8,7 @@ Wordleに触発されて作った言葉のゲームです。
 ## How to Play
 Complete lines as many as possible using eight words. Each word must be a 4-character noun in hiragana. Hit ENTER to submit your answer. The color of the bingo tiles will change depending on the conditions. The bingo characters change daily.  
 
-8つの単語でなるべく多くの列(縦・横・斜め)をそろえてください。各単語は4文字の名詞かつひらがなである必要があります。ENTERをおして答えを送信してください。条件によって、ビンゴのマスの色が変わります。ビンゴの文字は日替わりです。  
+8つの単語でなるべく多くの列(縦・横・斜め)をそろえてください。各単語は4文字かつひらがなである必要があります。ENTERをおして答えを送信してください。条件によって、ビンゴのマスの色が変わります。ビンゴの文字は日替わりです。  
 🟩:letters in a green tile complete lines. 列が揃ったマス  
 🟨:letters in a yellow are submitted characters. 送信した文字を含むマス  
 🟥:letters in a red are characters you are typing. 入力中の文字を含むマス  
