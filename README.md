@@ -2,8 +2,8 @@
 
 ---
 # 文字のビンゴ Mojibi
-A word playing game inspied by the popular game [Wordle](https://www.nytimes.com/games/wordle/). Hosted on GitHub pages [here](https://n2dev.github.io/mojibi/).  
-Wordleに触発されて作った言葉のゲームです。  
+A Japanese word bingo game. Hosted on GitHub pages [here](https://n2dev.github.io/mojibi/).  
+日本語をつかったビンゴゲームです。
 
 ## How to Play
 Complete lines as many as possible using eight words. Each word must be a 4-character in hiragana. Hit ENTER to submit your answer. The color of the bingo tiles will change depending on the conditions. The bingo characters change daily.  
