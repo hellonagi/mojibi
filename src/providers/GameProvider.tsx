@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState, useMemo, createContext } from 'react'
 import { DEFAULT_GRID } from '../constants/defaultGrid'
-import { mojibiState } from '../App'
+import { mojibiState, mojibiStats } from '../App'
 import { calcDateDiff } from '../utils/calcDateDiff'
 
 interface GameContextType {
@@ -99,6 +99,16 @@ const GameProvider: React.FC<GameProviderProps> = ({ children, initialValues, mo
 					lastPlayed: now.getTime(),
 				})
 			)
+			if (daysSinceLastPlayed >= 2){
+				localStorage.setItem(
+					'mojibi_stats',
+					JSON.stringify({
+						...mojibiStats,
+						gamesPlayedStreak: 0,
+					})
+				)
+				mojibiStats['gamesPlayedStreak'] = 0
+			}
 		} else {
 			setSavedGrid(mojibiState['evaluations'])
 			setEnteredWords(mojibiState['wordHistory'])
